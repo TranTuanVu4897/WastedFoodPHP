@@ -18,11 +18,11 @@ $query = "SELECT `id`,`role_id` FROM `account` WHERE `username` = '$username' AN
 //check exist an account
 //execute query
 $result = $connect->query($query);
-$row_num = mysqli_num_rows($result);
 
-if($row_num<=0){
+if($result->num_rows<=0){
     //return error
     echo "not exist account";
+    $connect->close();
     exit();
 }
 
@@ -39,6 +39,7 @@ while($row = mysqli_fetch_row($result)){
 if($role_id!=2){
     //return error
     echo "not match role";
+    $connect->close();
     exit();
 }
 
@@ -65,5 +66,5 @@ while($row = mysqli_fetch_assoc($result)){
 }
 //return json object if not error
 echo json_encode($listSeller);
-
+$connect->close();
 ?>

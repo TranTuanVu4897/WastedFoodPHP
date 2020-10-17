@@ -18,9 +18,8 @@ $query = "SELECT `id`,`role_id` FROM `account` WHERE `username` = '$username' AN
 //check exist an account
 //execute query
 $result = $connect->query($query);
-$row_num = mysqli_num_rows($result);
 
-if($row_num<=0){
+if($result->num_rows<=0){
     //return error
     echo "not exist account";
     exit();
