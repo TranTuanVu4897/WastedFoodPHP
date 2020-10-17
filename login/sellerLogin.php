@@ -2,11 +2,11 @@
 require "../connection.php";
 
 //get username and password from url parameters
-// $username = $_REQUEST['username'];
-// $password = $_REQUEST['password'];
+$username = $_REQUEST['username'];
+$password = $_REQUEST['password'];
 
-$username = "test";
-$password = "test";
+// $username = "test";
+// $password = "test";
 
 //remove special string from parameters
 $username = mysqli_real_escape_string($connect, $username);
