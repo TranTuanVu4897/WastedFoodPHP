@@ -36,34 +36,31 @@ while($row = mysqli_fetch_row($result)){
     $id = $row[0];
 }
 
-if($role_id!=2){
+if($role_id!=3){
     //return error
     echo "not match role";
     exit();
 }
 
-$query = "SELECT `account_id`,`name`,`image`,`address`,`latitude`,`longitude`,`description` FROM `seller` WHERE `account_id` = $id";
+$query = "SELECT `account_id`,`date_of_birth`,`image`,`gender` FROM `buyer` WHERE `account_id` = $id";
 $result = $connect->query($query);
 
 
-class Seller{
-    function Seller($account_id,$name,$image,$address,$latitude,$longitude,$description){
+class Buyer{
+    function Buyer($account_id,$date_of_birth,$image,$gender){
         $this->account_id = $account_id;
-        $this->name = $name;
+        $this->date_of_birth = $date_of_birth;
         $this->image = $image;
-        $this->address = $address;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-        $this->description = $description;
+        $this->gender = $gender;
     }
 }
 
-$listSeller = array();
+$listBuyer = array();
 
 while($row = mysqli_fetch_assoc($result)){
-    array_push($listSeller, new Seller($row['account_id'],$row['name'],$row['image'],$row['address'],$row['latitude'],$row['longitude'],$row['description']));
+    array_push($listBuyer, new Buyer($row['account_id'],$row['date_of_birth'],$row['image'],$row['gender']));
 }
 //return json object if not error
-echo json_encode($listSeller);
+echo json_encode($listBuyer);
 
 ?>
