@@ -35,6 +35,7 @@ $active = true;
 while($row = mysqli_fetch_row($result)){
     $role_id = $row[1];
     $id = $row[0];
+    $active = $row[2];
 }
 
 if($role_id!=2){
@@ -44,7 +45,7 @@ if($role_id!=2){
     exit();
 }
 
-if(!$role_id){
+if(!$active){
     //return error
     echo "account is locked";
     exit();

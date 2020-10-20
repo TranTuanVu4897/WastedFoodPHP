@@ -43,7 +43,7 @@ if($role_id!=3){
     exit();
 }
 
-if(!$role_id){
+if(!$active){
     //return error
     echo "account is locked";
     exit();
