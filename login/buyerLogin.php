@@ -2,18 +2,18 @@
 require "../connection.php";
 
 //get username and password from url parameters
-$username = $_REQUEST['username'];
+$phone = $_REQUEST['phone'];
 $password = $_REQUEST['password'];
 
 // $username = "test";
 // $password = "test";
 
 //remove special string from parameters
-$username = mysqli_real_escape_string($connect, $username);
+$phone = mysqli_real_escape_string($connect, $phone);
 $password = mysqli_real_escape_string($connect, $password);
 
 //sql string get info
-$query = "SELECT `id`,`role_id` FROM `account` WHERE `username` = '$username' AND `password` = '$password'";
+$query = "SELECT `id`,`role_id`,`is_active` FROM `account` WHERE `phone` = '$phone' AND `password` = '$password'";
 
 //check exist an account
 //execute query
@@ -28,11 +28,13 @@ if($result->num_rows<=0){
 //get role id
 $role_id = 0;
 $id = 0;
+$active = true;
 
 //get role_id and id
 while($row = mysqli_fetch_row($result)){
     $role_id = $row[1];
     $id = $row[0];
+    $active = $row[3];
 }
 
 if($role_id!=3){
@@ -41,9 +43,14 @@ if($role_id!=3){
     exit();
 }
 
+if(!$role_id){
+    //return error
+    echo "account is locked";
+    exit();
+}
+
 $query = "SELECT `account_id`,`date_of_birth`,`image`,`gender` FROM `buyer` WHERE `account_id` = $id";
 $result = $connect->query($query);
-
 
 class Buyer{
     function Buyer($account_id,$date_of_birth,$image,$gender){

@@ -13,7 +13,7 @@ $username = mysqli_real_escape_string($connect, $username);
 $password = mysqli_real_escape_string($connect, $password);
 
 //sql string get info
-$query = "SELECT `id`,`role_id` FROM `account` WHERE `username` = '$username' AND `password` = '$password'";
+$query = "SELECT `id`,`role_id`,`is_active` FROM `account` WHERE `username` = '$username' AND `password` = '$password'";
 
 //check exist an account
 //execute query
@@ -29,6 +29,7 @@ if($result->num_rows<=0){
 //get role id
 $role_id = 0;
 $id = 0;
+$active = true;
 
 //get role_id and id
 while($row = mysqli_fetch_row($result)){
@@ -40,6 +41,12 @@ if($role_id!=2){
     //return error
     echo "not match role";
     $connect->close();
+    exit();
+}
+
+if(!$role_id){
+    //return error
+    echo "account is locked";
     exit();
 }
 
