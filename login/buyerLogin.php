@@ -34,7 +34,7 @@ $active = true;
 while($row = mysqli_fetch_row($result)){
     $role_id = $row[1];
     $id = $row[0];
-    $active = $row[3];
+    $active = $row[2];
 }
 
 if($role_id!=3){
