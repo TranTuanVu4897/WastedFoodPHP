@@ -38,20 +38,20 @@ class Product
 {
     function Product($id, $seller_id, $name, $image, $start_time, $end_time, $original_price, $sell_price, $original_quantity, $remain_quantity, $description, $sell_date, $status, $shippable)
     {
-        $this->Id = $id;
-        $this->SellerId = $seller_id;
-        $this->Name = $name;
-        $this->Image = $image;
-        $this->StartTime = $start_time;
-        $this->EndTime = $end_time;
-        $this->OriginalPrice = $original_price;
-        $this->SellPrice = $sell_price;
-        $this->OriginalQuantity = $original_quantity;
-        $this->RemainQuantity = $remain_quantity;
-        $this->Description = $description;
-        $this->SellDate = $sell_date;
-        $this->Status = $status;
-        $this->Shippable = $shippable;
+        $this->id = $id;
+        $this->seller_id = $seller_id;
+        $this->name = $name;
+        $this->image = $image;
+        $this->start_time = $start_time;
+        $this->end_time = $end_time;
+        $this->original_price = $original_price;
+        $this->sell_price = $sell_price;
+        $this->original_quantity = $original_quantity;
+        $this->remain_quantity = $remain_quantity;
+        $this->description = $description;
+        $this->sell_date = $sell_date;
+        $this->status = $status;
+        $this->shippable = $shippable;
     }
 }
 

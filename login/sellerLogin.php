@@ -66,6 +66,7 @@ class Seller{
         $this->description = $description;
     }
 }
+echo mysqli_query($connect,$query)->$php_errormsg;
 
 $listSeller = array();
 

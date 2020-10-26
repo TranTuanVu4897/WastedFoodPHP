@@ -27,21 +27,21 @@ $result = $connect->query($query);
 //Class product
 class Seller{
     function Seller($account_id,$name,$image,$address,$latitude,$longitude,$description){
-        $this->AccountId = $account_id;
-        $this->Name = $name;
-        $this->Image = $image;
-        $this->Address = $address;
-        $this->Latitude = $latitude;
-        $this->Longitude = $longitude;
-        $this->Description = $description;
+        $this->account_id = $account_id;
+        $this->name = $name;
+        $this->image = $image;
+        $this->address = $address;
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+        $this->description = $description;
     }
 
 }
 
-$listProcution = array();
+$listSeller = array();
 
 while ($row = mysqli_fetch_assoc($result)) {
-    array_push($listProcution, new Seller($row['account_id'], $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['longitude']));
+    array_push($listSeller, new Seller($row['account_id'], $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['longitude']));
 }
 
-echo json_encode($listProcution);
+echo json_encode($listSeller);
