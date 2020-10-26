@@ -6,7 +6,6 @@ $address = $_POST["address"];
 $id = $_POST["id"];
 
 $description = $_POST["description"];
-$email = $_POST["email"];
 
 //$name = "123";
 //$address = "123 hoa lac";
@@ -18,9 +17,8 @@ $email = $_POST["email"];
 $query = "update Seller set 
 address = '$address',
 name = '$name',
-description = '$description',
-email = '$email'
-where id = '$id'";
+description = '$description'
+where account_id = '$id'";
 
 if(mysqli_query($connect,$query))
 {
@@ -31,6 +29,6 @@ echo " Succesfully update";
 else
 {
 echo "Try again Later ..." .mysqli_error($connect) ;
-
+echo $connect->query($query)->$php_errormsg;
 }
 ?>
