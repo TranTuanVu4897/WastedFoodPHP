@@ -28,7 +28,6 @@ echo " Succesfully update";
 }
 else
 {
-echo "Try again Later ..." .mysqli_error($connect) ;
-echo $connect->query($query)->$php_errormsg;
+echo "Try again Later ..." ;
 }
 ?>
