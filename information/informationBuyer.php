@@ -13,17 +13,18 @@ $id = mysqli_real_escape_string($connect, $id);
 $query = "SELECT  `date_of_birth`, `image`, `gender`, `name`  FROM `buyer` WHERE `account_id` = '$id'" ;
 $result = $connect->query($query);
 //get role_id and id
-while($row = mysqli_fetch_row($result)){
-    // $dob = $row[0];
-    // $urlImage = $row[1];
-    // $gender = $row[2];
-    // $name = $row[3];
-    echo '1 ' . $row[0] . '<br/>';
-    echo '1 ' .$row[1]. '<br/>';
-    echo '1 ' .$row[2]. '<br/>';
-    echo '1 ' .$row[3]. '<br/>';
-}
-
+// while($row = mysqli_fetch_row($result)){
+//     // $dob = $row[0];
+//     // $urlImage = $row[1];
+//     // $gender = $row[2];
+//     // $name = $row[3];
+//     echo '1 ' . $row[0] . '<br/>';
+//     echo '1 ' .$row[1]. '<br/>';
+//     echo '1 ' .$row[2]. '<br/>';
+//     echo '1 ' .$row[3]. '<br/>';
+// }
+// $query = "SELECT  `date_of_birth`, `image`, `gender`, `name`  FROM `buyer` WHERE `account_id` = '$id'" ;
+// $result = $connect->query($query);
 
 class Buyer{
     function Buyer($account_id,$date_of_birth,$image,$gender){
