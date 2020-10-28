@@ -2,54 +2,13 @@
 require "../connection.php";
 
 //get username and password from url parameters
-$username = $_REQUEST['username'];
-$password = $_REQUEST['password'];
+$account_id = $_REQUEST['account_id'];
 
 // $username = "test";
 // $password = "test";
 
 //remove special string from parameters
-$username = mysqli_real_escape_string($connect, $username);
-$password = mysqli_real_escape_string($connect, $password);
-
-//sql string get info
-$query = "SELECT `id`,`role_id`,`is_active` FROM `account` WHERE `username` = '$username' AND `password` = '$password'";
-
-//check exist an account
-//execute query
-$result = $connect->query($query);
-
-if($result->num_rows<=0){
-    //return error
-    echo "not exist account";
-    $connect->close();
-    exit();
-}
-
-//get role id
-$role_id = 0;
-$id = 0;
-$active = true;
-
-//get role_id and id
-while($row = mysqli_fetch_row($result)){
-    $role_id = $row[1];
-    $id = $row[0];
-    $active = $row[2];
-}
-
-if($role_id!=2){
-    //return error
-    echo "not match role";
-    $connect->close();
-    exit();
-}
-
-if(!$active){
-    //return error
-    echo "account is locked";
-    exit();
-}
+$account_id = mysqli_real_escape_string($connect, $account_id);
 
 $query = "SELECT `account_id`,`name`,`image`,`address`,`latitude`,`longitude`,`description` FROM `seller` WHERE `account_id` = $id";
 $result = $connect->query($query);
