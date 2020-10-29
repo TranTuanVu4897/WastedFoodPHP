@@ -2,15 +2,14 @@
 require "../connection.php";
 
 //get username and password from url parameters
-$id = $_REQUEST['id'];
+$account_id = $_REQUEST['account_id'];
 
 
-$id = mysqli_real_escape_string($connect, $id);
-
+$account_id = mysqli_real_escape_string($connect, $account_id);
 
 //sql string get info
 
-$query = "SELECT  `date_of_birth`, `image`, `gender`, `name`  FROM `buyer` WHERE `account_id` = '$id'" ;
+$query = "SELECT account_id, `date_of_birth`, `image`, `gender`, `name`  FROM `buyer` WHERE `account_id` = '$account_id'" ;
 $result = $connect->query($query);
 //get role_id and id
 // while($row = mysqli_fetch_row($result)){
@@ -38,8 +37,8 @@ class Buyer{
 $listBuyer = array();
 
 while($row = mysqli_fetch_assoc($result)){
-    // array_push($listBuyer, new Buyer($row['account_id'],$row['date_of_birth'],$row['image'],$row['gender']));
-    array_push($listBuyer, new Buyer('3010','11/11/2011','','1'));
+    array_push($listBuyer, new Buyer($row['account_id'],$row['date_of_birth'],$row['image'],$row['gender']));
+    //array_push($listBuyer, new Buyer('3010','11/11/2011','','1'));
 }
 //return json object if not error
 echo json_encode($listBuyer);
