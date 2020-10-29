@@ -4,7 +4,9 @@ require "../connection.php";
 $seller_id = $_REQUEST["seller_id"];
 
 //query
-$query = "select * from Product where seller_id = '$seller_id' ";
+$query = "select `id`,`seller_id`,`name`, `image`,`start_time`, `end_time`, `original_price`, `sell_price`, 
+`original_quantity`, `remain_quantity`, `description`, `sell_date`, `status`, `shippable` 
+from Product where seller_id = '$seller_id' ";
 
 $result = $connect->query($query);
 
@@ -39,7 +41,25 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 //change array to json
 echo json_encode($listProduction);
+$query1 = "SELECT `account_id`,`name`,`image`,`address`, `latitude`, `longitude`, `description` FROM `seller` WHERE `account_id` = $seller_id";
+$result = $connect->query($query1);
 
+class Seller{
+    function Seller($id, $name, $image, $address, $latitude, $longitude, $description){
+        $this->Id = $id;
+        $this->Name = $name;
+        $this->Image = $image;
+        $this->Address = $address;
+        $this->Latitude = $latitude;
+        $this->Longitude = $longitude;
+        $this->Description = $description;
+    }
+}
+$seller = array();
+while($row = mysqli_fetch_assoc($result)) {
+    array_push($seller, new Seller($row['account_id'], $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description']));
+}
+echo json_encode($seller);
 
 
 
