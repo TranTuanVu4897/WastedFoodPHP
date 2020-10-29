@@ -2,6 +2,7 @@
 require "../connection.php";
 
 $seller_id = $_REQUEST["seller_id"];
+$seller = mysqli_real_escape_string($connect,$seller);
 
 //query
 $query = "select `id`,`seller_id`,`name`, `image`,`start_time`, `end_time`, `original_price`, `sell_price`, 
@@ -41,7 +42,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 //change array to json
 echo json_encode($listProduction);
-$query1 = "SELECT `account_id`,`name`,`image`,`address`, `latitude`, `longitude`, `description` FROM `seller` WHERE `account_id` = $seller_id";
+
+//get Seller
+$query1 = "SELECT `account_id`,`name`,`image`,`address`, `latitude`, `longitude`, `description` 
+FROM `seller` WHERE `account_id` = $seller_id";
+
 $result = $connect->query($query1);
 
 class Seller{
@@ -55,6 +60,7 @@ class Seller{
         $this->Description = $description;
     }
 }
+//create array seller
 $seller = array();
 while($row = mysqli_fetch_assoc($result)) {
     array_push($seller, new Seller($row['account_id'], $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description']));
