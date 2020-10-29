@@ -4,7 +4,8 @@ require "../connection.php";
 //get username and password from url parameters
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
-
+//$username = "test";
+//$password = "12707736894140473154801792860916528374";
 // $username = "test";
 // $password = "test";
 
@@ -66,7 +67,7 @@ class Seller{
         $this->description = $description;
     }
 }
-echo mysqli_query($connect,$query)->$php_errormsg;
+//echo mysqli_query($connect,$query)->$php_errormsg;
 
 $listSeller = array();
 
