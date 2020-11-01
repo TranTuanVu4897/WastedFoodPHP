@@ -18,4 +18,5 @@ class Seller extends Account{
         $this->longitude=$longitude;
         $this->description=$description;
     }
+
 }
