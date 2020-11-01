@@ -1,6 +1,6 @@
 <?php
 require "../connection.php";
-
+require "../model/seller.php";
 //get username and password from url parameters
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
@@ -13,8 +13,18 @@ $username = mysqli_real_escape_string($connect, $username);
 $password = mysqli_real_escape_string($connect, $password);
 
 //sql string get info
-$query = "SELECT `id`,`role_id`,`is_active` FROM `account` WHERE `username` = '$username' AND `password` = '$password'";
-
+$query = <<<EOF
+        SELECT `id`, `role_id`, `username`, `password`, `phone`, 
+            `third_party_id`, `email`, `created_date`, `is_active`, 
+            `name`,`image`,`address`,`latitude`,`longitude`,`description`
+        FROM `account` 
+        JOIN `seller` 
+        ON `account`.`id` = `seller`.`account_id` 
+        WHERE `phone` = '$username' 
+            AND `password` = '$password'
+            AND `role_id` = 2
+            AND `is_active` = 1;
+EOF;
 //check exist an account
 //execute query
 $result = $connect->query($query);
@@ -33,9 +43,15 @@ $active = true;
 
 //get role_id and id
 while($row = mysqli_fetch_row($result)){
-    $role_id = $row[1];
-    $id = $row[0];
-    $active = $row[2];
+    
+}
+
+$listSeller = array();
+
+while($row = mysqli_fetch_assoc($result)){
+    $role_id = $row['role_id'];
+    $active = $row['is_active'];
+    array_push($listSeller, new Seller($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['name'],$row['image'],$row['address'],$row['latitude'],$row['longitude'],$row['description']));
 }
 
 if($role_id!=2){
@@ -51,26 +67,22 @@ if(!$active){
     exit();
 }
 
-$query = "SELECT `account_id`,`name`,`image`,`address`,`latitude`,`longitude`,`description` FROM `seller` WHERE `account_id` = $id";
-$result = $connect->query($query);
+// $query = "SELECT `account_id`,`name`,`image`,`address`,`latitude`,`longitude`,`description` FROM `seller` WHERE `account_id` = $id";
+// $result = $connect->query($query);
 
 
-class Seller{
-    function Seller($account_id,$name,$image,$address,$latitude,$longitude,$description){
-        $this->account_id = $account_id;
-        $this->name = $name;
-        $this->image = $image;
-        $this->address = $address;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-        $this->description = $description;
-    }
-}
-$listSeller = array();
+// class Seller{
+//     function Seller($account_id,$name,$image,$address,$latitude,$longitude,$description){
+//         $this->account_id = $account_id;
+//         $this->name = $name;
+//         $this->image = $image;
+//         $this->address = $address;
+//         $this->latitude = $latitude;
+//         $this->longitude = $longitude;
+//         $this->description = $description;
+//     }
+// }
 
-while($row = mysqli_fetch_assoc($result)){
-    array_push($listSeller, new Seller($row['account_id'],$row['name'],$row['image'],$row['address'],$row['latitude'],$row['longitude'],$row['description']));
-}
 //return json object if not error
 echo json_encode($listSeller);
 $connect->close();

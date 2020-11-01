@@ -6,15 +6,29 @@ require "../model/buyer.php";
 $phone = $_REQUEST['phone'];
 $password = $_REQUEST['password'];
 
-// $username = "test";
-// $password = "test";
+
+// $phone = "0123456789";
+// $password = "12707736894140473154801792860916528374";
 
 //remove special string from parameters
 $phone = mysqli_real_escape_string($connect, $phone);
 $password = mysqli_real_escape_string($connect, $password);
 
 //sql string get info
-$query = "SELECT `id`,`role_id`,`is_active` FROM `account` WHERE `phone` = '$phone' AND `password` = '$password'";
+// $query = "SELECT `id`,`role_id`,`is_active` FROM `account` WHERE `phone` = '$phone' AND `password` = '$password'";
+
+$query = <<<EOF
+        SELECT `id`, `role_id`, `username`, `password`, `phone`, 
+            `third_party_id`, `email`, `created_date`, `is_active`, 
+            `date_of_birth`, `name`, `image`, `gender`
+        FROM `account` 
+        JOIN `buyer` 
+        ON `account`.`id` = `buyer`.`account_id` 
+        WHERE `phone` = '$phone' 
+            AND `password` = '$password'
+            AND `role_id` = 3
+            AND `is_active` = 1;
+EOF;
 
 //check exist an account
 //execute query
@@ -28,15 +42,20 @@ if($result->num_rows<=0){
 
 //get role id
 $role_id = 0;
-$id = 0;
 $active = true;
 
+
+$listBuyer = array();
+
+while($row = mysqli_fetch_assoc($result)){
+    $role_id = $row['role_id'];
+    $active = $row['is_active'];
+    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
+}
 //get role_id and id
 while($row = mysqli_fetch_row($result)){
     
-    $role_id = $row[1];
-    $id = $row[0];
-    $active = $row[2];
+    
 }
 
 if($role_id!=3){
@@ -51,15 +70,11 @@ if(!$active){
     exit();
 }
 
-$query = "SELECT `account_id`,`date_of_birth`,`name`,`image`,`gender` FROM `buyer` WHERE `account_id` = $id";
-$result = $connect->query($query);
+// $query = "SELECT `account_id`,`date_of_birth`,`name`,`image`,`gender` FROM `buyer` WHERE `account_id` = $id";
+// $result = $connect->query($query);
+// $result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 
 
-$listBuyer = array();
-
-while($row = mysqli_fetch_assoc($result)){
-    array_push($listBuyer, new Buyer($row['account_id'],$row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
-}
 //return json object if not error
 echo json_encode($listBuyer);
 
