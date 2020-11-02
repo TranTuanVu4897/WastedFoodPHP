@@ -4,7 +4,8 @@ require "../model/seller.php";
 //get username and password from url parameters
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
-
+//$username = "test";
+//$password = "12707736894140473154801792860916528374";
 // $username = "test";
 // $password = "test";
 

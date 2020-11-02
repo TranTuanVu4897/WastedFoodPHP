@@ -17,7 +17,7 @@ require "connection.php";
 $id = $_REQUEST['id'];
 $id = mysqli_real_escape_string($connect,$id);
 $query = <<<EOF
-    SELECT `account_id`,`name`,`image`,`address`,`latitude`,`longitude`,`longitude`
+    SELECT `account_id`,`name`,`image`,`address`,`latitude`,`longitude`,`description`
     FROM seller
     WHERE `account_id` = $id
 EOF;
@@ -41,7 +41,7 @@ class Seller{
 $listSeller = array();
 
 while ($row = mysqli_fetch_assoc($result)) {
-    array_push($listSeller, new Seller($row['account_id'], $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['longitude']));
+    array_push($listSeller, new Seller($row['account_id'], $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description']));
 }
 
 echo json_encode($listSeller);
