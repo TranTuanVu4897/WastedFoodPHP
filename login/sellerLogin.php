@@ -38,13 +38,7 @@ if($result->num_rows<=0){
 
 //get role id
 $role_id = 0;
-$id = 0;
 $active = true;
-
-//get role_id and id
-while($row = mysqli_fetch_row($result)){
-    
-}
 
 $listSeller = array();
 
