@@ -21,7 +21,7 @@ $query = <<<EOF
         FROM `account` 
         JOIN `seller` 
         ON `account`.`id` = `seller`.`account_id` 
-        WHERE `phone` = '$username' 
+        WHERE `username` = '$username' 
             AND `password` = '$password'
             AND `role_id` = 2
             AND `is_active` = 1;
@@ -38,7 +38,12 @@ if($result->num_rows<=0){
 }
 
 //get role id
+<<<<<<< Updated upstream
 $role_id = 0;
+=======
+$role_id = 2;
+//$id = 0;
+>>>>>>> Stashed changes
 $active = true;
 
 $listSeller = array();

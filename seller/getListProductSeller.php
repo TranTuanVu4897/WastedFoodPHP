@@ -2,7 +2,7 @@
 require "../connection.php";
 
 $seller_id = $_REQUEST["seller_id"];
-$seller = mysqli_real_escape_string($connect,$seller);
+$seller = mysqli_real_escape_string($connect,$seller_id);
 
 //query
 $query = "select `id`,`seller_id`,`name`, `image`,`start_time`, `end_time`, `original_price`, `sell_price`, 
