@@ -6,8 +6,7 @@ $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
 //$username = "test";
 //$password = "12707736894140473154801792860916528374";
-// $username = "test";
-// $password = "test";
+
 
 //remove special string from parameters
 $username = mysqli_real_escape_string($connect, $username);
@@ -23,8 +22,6 @@ $query = <<<EOF
         ON `account`.`id` = `seller`.`account_id` 
         WHERE `username` = '$username' 
             AND `password` = '$password'
-            AND `role_id` = 2
-            AND `is_active` = 1;
 EOF;
 //check exist an account
 //execute query
