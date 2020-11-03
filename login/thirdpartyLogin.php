@@ -1,5 +1,6 @@
 <?php
 require "../connection.php";
+require "../model/buyer.php";
 
 //get 3rd party id
 $thirdPartyId = $_REQUEST["thirdPartyId"];
@@ -34,22 +35,15 @@ if($phone == null){
     exit();
 }
 
-$query = "SELECT `account_id`,`date_of_birth`,`image`,`gender` FROM `buyer` WHERE `account_id` = $id";
+$query = "SELECT `account_id`,`name`,`date_of_birth`,`image`,`gender` FROM `buyer` WHERE `account_id` = $id";
 $result = $connect->query($query);
 
-class Buyer{
-    function Buyer($account_id,$date_of_birth,$image,$gender){
-        $this->account_id = $account_id;
-        $this->date_of_birth = $date_of_birth;
-        $this->image = $image;
-        $this->gender = $gender;
-    }
-}
+
 
 $listBuyer = array();
 
 while($row = mysqli_fetch_assoc($result)){
-    array_push($listBuyer, new Buyer($row['account_id'],$row['date_of_birth'],$row['image'],$row['gender']));
+    array_push($listBuyer, new Buyer($row['account_id'],null,null,null,null,null,null,null,null,$row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
 }
 
 

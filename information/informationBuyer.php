@@ -30,7 +30,7 @@ $result = $connect->query($query);
 $listBuyer = array();
 
 while($row = mysqli_fetch_assoc($result)){
-    array_push($listBuyer, new Buyer($row['account_id'],$row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
+    array_push($listBuyer, new Buyer($row['account_id'],null,null,null,null,null,null,null,null,$row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
     //array_push($listBuyer, new Buyer('3010','11/11/2011','','1'));
 }
 //return json object if not error
