@@ -4,9 +4,9 @@ require "../model/seller.php";
 //get username and password from url parameters
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
+//$username = "test";
+//$password = "12707736894140473154801792860916528374";
 
-// $username = "test";
-// $password = "test";
 
 //remove special string from parameters
 $username = mysqli_real_escape_string($connect, $username);
@@ -20,10 +20,8 @@ $query = <<<EOF
         FROM `account` 
         JOIN `seller` 
         ON `account`.`id` = `seller`.`account_id` 
-        WHERE `phone` = '$username' 
+        WHERE `username` = '$username' 
             AND `password` = '$password'
-            AND `role_id` = 2
-            AND `is_active` = 1;
 EOF;
 //check exist an account
 //execute query
@@ -37,14 +35,13 @@ if($result->num_rows<=0){
 }
 
 //get role id
+<<<<<<< Updated upstream
 $role_id = 0;
-$id = 0;
+=======
+$role_id = 2;
+//$id = 0;
+>>>>>>> Stashed changes
 $active = true;
-
-//get role_id and id
-while($row = mysqli_fetch_row($result)){
-    
-}
 
 $listSeller = array();
 
