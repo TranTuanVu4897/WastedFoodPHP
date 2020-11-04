@@ -56,7 +56,7 @@ else{
     VALUES ('$id', '3', '$username', '$username', NULL, '$thirdPartyId', '$email', current_timestamp(), '1', current_timestamp())";
     //$result = $connect->query($query3);
     if(mysqli_query($connect, $query3)){
-        echo "success";
+        echo "OK";
     } else{
         echo"error";
     }
