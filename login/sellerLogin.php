@@ -35,12 +35,8 @@ if($result->num_rows<=0){
 }
 
 //get role id
-<<<<<<< Updated upstream
-$role_id = 0;
-=======
 $role_id = 2;
 //$id = 0;
->>>>>>> Stashed changes
 $active = true;
 
 $listSeller = array();
