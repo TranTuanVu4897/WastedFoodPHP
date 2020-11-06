@@ -10,28 +10,22 @@ $account_id = mysqli_real_escape_string($connect, $account_id);
 
 //sql string get info
 
-$query = "SELECT account_id, `name`, `date_of_birth`, `image`, `gender`, `name`  FROM `buyer` WHERE `account_id` = '$account_id'" ;
+$query = <<<EOF
+SELECT `id`, `role_id`, `username`, `password`, `phone`, 
+    `third_party_id`, `email`, `created_date`, `is_active`, 
+    `date_of_birth`, `name`, `image`, `gender`
+FROM `account` 
+JOIN `buyer` 
+ON `account`.`id` = `buyer`.`account_id` 
+WHERE `account`.`id` = '$account_id';
+EOF;
 $result = $connect->query($query);
-//get role_id and id
-// while($row = mysqli_fetch_row($result)){
-//     // $dob = $row[0];
-//     // $urlImage = $row[1];
-//     // $gender = $row[2];
-//     // $name = $row[3];
-//     echo '1 ' . $row[0] . '<br/>';
-//     echo '1 ' .$row[1]. '<br/>';
-//     echo '1 ' .$row[2]. '<br/>';
-//     echo '1 ' .$row[3]. '<br/>';
-// }
-// $query = "SELECT  `date_of_birth`, `image`, `gender`, `name`  FROM `buyer` WHERE `account_id` = '$id'" ;
-// $result = $connect->query($query);
 
 
 $listBuyer = array();
 
 while($row = mysqli_fetch_assoc($result)){
-    array_push($listBuyer, new Buyer($row['account_id'],null,null,null,null,null,null,null,null,$row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
-    //array_push($listBuyer, new Buyer('3010','11/11/2011','','1'));
+    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
 }
 //return json object if not error
 echo json_encode($listBuyer);

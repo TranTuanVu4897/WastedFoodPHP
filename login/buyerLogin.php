@@ -53,10 +53,6 @@ while($row = mysqli_fetch_assoc($result)){
     array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
 }
 //get role_id and id
-while($row = mysqli_fetch_row($result)){
-    
-    
-}
 
 if($role_id!=3){
     //return error
