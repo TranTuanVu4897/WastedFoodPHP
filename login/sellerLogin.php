@@ -34,9 +34,7 @@ if($result->num_rows<=0){
     exit();
 }
 
-//get role id
-$role_id = 2;
-//$id = 0;
+$role_id = 0;
 $active = true;
 
 $listSeller = array();

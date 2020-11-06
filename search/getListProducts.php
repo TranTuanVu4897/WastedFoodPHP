@@ -1,6 +1,7 @@
 <?php
 require "../connection.php";
-
+require "../model/product.php";
+require "../model/seller.php";
 //sample place
 // $lat = 21.0110168;
 // $lng = 105.5182143;
@@ -17,12 +18,15 @@ $lng = mysqli_real_escape_string($connect, $lng);
 $distance = mysqli_real_escape_string($connect, $distance);
 
 $query = <<<EOF
-        SELECT `product`.`id`,`seller_id`,`name`,`image`,`start_time`, 
-        `end_time`, `original_price`,`sell_price`, `original_quantity`,
-        `remain_quantity`,`description`,`sell_date`,`status`,`shippable` 
+        SELECT `product`.`id` AS `product_id`,`seller_id`,
+        `product`.`name` AS `product_name`,`product`.`image` AS `product_image`,
+        `start_time`, `end_time`, `original_price`,`sell_price`, `original_quantity`,
+        `remain_quantity`,`product`.`description` AS `product_description`,`sell_date`,`status`,`shippable`,
+        `account_id`, `currents`.`name` AS `seller_name`, `currents`.`image` AS `seller_image`,
+        `address`,`latitude`,`longitude`,`currents`.`description` AS `seller_description`, distance
         FROM `product` JOIN 
-            (   SELECT `account_id` FROM 
-                    (   SELECT `account_id`, 
+            (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, distance FROM 
+                    (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`,
                             ( ( ( acos( sin(( $lat * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( $lat* pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( $lng - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance 
                         FROM `seller` ) 
                     markers 
@@ -31,34 +35,15 @@ $query = <<<EOF
         ON currents.`account_id` = `product`.`seller_id`;
 EOF;
 
-$result = $connect->query($query);
+// $result = $connect->query($query);
 
-//Class product
-class Product
-{
-    function Product($id, $seller_id, $name, $image, $start_time, $end_time, $original_price, $sell_price, $original_quantity, $remain_quantity, $description, $sell_date, $status, $shippable)
-    {
-        $this->id = $id;
-        $this->seller_id = $seller_id;
-        $this->name = $name;
-        $this->image = $image;
-        $this->start_time = $start_time;
-        $this->end_time = $end_time;
-        $this->original_price = $original_price;
-        $this->sell_price = $sell_price;
-        $this->original_quantity = $original_quantity;
-        $this->remain_quantity = $remain_quantity;
-        $this->description = $description;
-        $this->sell_date = $sell_date;
-        $this->status = $status;
-        $this->shippable = $shippable;
-    }
-}
+$result = mysqli_query($connect, $query) or trigger_error("Query Failed! SQL: $query - Error: " . mysqli_error($connect), E_USER_ERROR);
 
 $listProduction = array();
 
 while ($row = mysqli_fetch_assoc($result)) {
-    array_push($listProduction, new Product($row['id'], $row['seller_id'], $row['name'], $row['image'], $row['start_time'], $row['end_time'], $row['original_price'], $row['sell_price'], $row['original_quantity'], $row['remain_quantity'], $row['description'], $row['sell_date'], $row['status'], $row['shippable']));
+    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['seller_name'], $row['seller_image'], $row['address'], $row['latitude'], $row['longitude'], $row['seller_description'], $row['distance']);
+    array_push($listProduction, new Product($row['product_id'], $row['seller_id'], $row['product_name'], $row['product_image'], $row['start_time'], $row['end_time'], $row['original_price'], $row['sell_price'], $row['original_quantity'], $row['remain_quantity'], $row['product_description'], $row['sell_date'], $row['status'], $row['shippable'], $seller));
 }
 
 echo json_encode($listProduction);
