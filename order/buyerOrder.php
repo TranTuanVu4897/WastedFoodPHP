@@ -10,6 +10,11 @@ $total_cost = $_POST["total_cost"];
 // $buyer_rating = $_POST["buyer_rating"];
 // $buyer_comment = $_POST["buyer_comment"];
 
+$query = "UPDATE `product` SET `remain_quantity` = `remain_quantity` - $quantity WHERE `product`.`id` = $product_id AND `remain_quantity` - $quantity > -1;";
+
+if(!mysqli_query($connect,$query)){
+    echo "NOT ENOUGH";
+}
 
 $query = "INSERT INTO `order` ( `buyer_id`, `product_id`, `quantity`, `status`, `total_cost`, `buyer_rating`, `buyer_comment`) VALUES ( '$buyer_id', '$product_id', '$quantity', '$status', '$total_cost', NULL, NULL);";
 
@@ -20,5 +25,7 @@ if(mysqli_query($connect,$query)){
     echo "SUCCESS";
 }else{
     echo "ERROR";
+    $connect->rollback();
 }
+$connect->close();
 
