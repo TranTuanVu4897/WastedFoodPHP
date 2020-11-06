@@ -9,6 +9,8 @@ $sellPrice = $_POST["sellPrice"];
 $openTime = $_POST["openTime"];
 $closeTime = $_POST["closeTime"];
 
+
+
 $query = "update Product set 
 name = '$name',
 original_Price = '$originalPrice',
@@ -16,16 +18,9 @@ sell_Price = '$sellPrice'
 where seller_id = '$seller_id'
 and id = '$id'";
 
-if(mysqli_query($connect,$query))aa
-{
-
-echo " Succesfully update";
-
+if (mysqli_query($connect, $query)) {
+    echo "Successfully update";
+} else {
+    echo "Try again Later ...";
+    echo $connect->error;
 }
-else
-{
-echo "Try again Later ..." ;
-echo $connect->error;
-}
-
-?>

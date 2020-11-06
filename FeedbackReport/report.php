@@ -20,6 +20,7 @@ $report_image = mysqli_real_escape_string($connect, $report_image);
 
 $query = "INSERT INTO `report` (`id`, `reporter_id`, `accused_id`, `report_text`, `report_image`, `created_date`, `status`, `modified_date`)
  VALUES (NULL, '$reporter_id', '$accused_id', '$report_text', '$report_image', current_timestamp(), 'UNREAD', current_timestamp())";
+
 //$result = $connect->query($query);
 if(mysqli_query($connect, $query)){
         echo "success";
