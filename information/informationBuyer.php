@@ -19,6 +19,7 @@ JOIN `buyer`
 ON `account`.`id` = `buyer`.`account_id` 
 WHERE `account`.`id` = '$account_id';
 EOF;
+
 $result = $connect->query($query);
 
 
