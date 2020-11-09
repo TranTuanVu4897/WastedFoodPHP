@@ -17,6 +17,7 @@ class Account{
        $this->role_id=$role_id;
        $this->username = $username;
        $this->password = $password;
+       $this->phone = $phone;
        $this->third_party_id = $third_party_id;
        $this->email = $email;
        $this->create_date = $create_date;
