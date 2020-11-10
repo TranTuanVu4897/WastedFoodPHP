@@ -8,17 +8,25 @@ require "../model/seller.php";
 
 $lat = $_REQUEST['lat'];
 $lng = $_REQUEST['lng'];
+$distance = $_REQUEST['distance'];
+
+$start_time = $_REQUEST['start_time'];
+$end_time = $_REQUEST['end_time'];
+$discount = $_REQUEST['discount'];
+
 //sample distance
-$distance = 150; //$_REQUEST['distance']
+// $distance = 150; //$_REQUEST['distance']
 
 
 //escape special characters in variable
 $lat = mysqli_real_escape_string($connect, $lat);
 $lng = mysqli_real_escape_string($connect, $lng);
 $distance = mysqli_real_escape_string($connect, $distance);
+$start_time = mysqli_real_escape_string($connect, $start_time);
+$end_time = mysqli_real_escape_string($connect, $end_time);
+$discount = mysqli_real_escape_string($connect, $discount);
 
-$query = <<<EOF
-        SELECT `product`.`id` AS `product_id`,`seller_id`,
+$query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
         `product`.`name` AS `product_name`,`product`.`image` AS `product_image`,
         `start_time`, `end_time`, `original_price`,`sell_price`, `original_quantity`,
         `remain_quantity`,`product`.`description` AS `product_description`,`sell_date`,`status`,`shippable`,
@@ -32,14 +40,53 @@ $query = <<<EOF
                     markers 
                 WHERE distance <= $distance) 
             currents 
-        ON currents.`account_id` = `product`.`seller_id`;
-EOF;
+        ON currents.`account_id` = `product`.`seller_id`
+        WHERE DATE(`sell_date`) = CURRENT_DATE AND `remain_quantity` > 0
+    ";
+if ($start_time != null)
+    $query = $query . " AND TIME(`start_time`) >= '$start_time' AND TIME(`end_time`) <= '$end_time' ";
 
+if($discount != null)
+    $query = $query . " AND `product`.`sell_price` / `product`.`original_price` * 100 < $discount ";
+
+$query = $query . ";";
 // $result = $connect->query($query);
 
 $result = mysqli_query($connect, $query) or trigger_error("Query Failed! SQL: $query - Error: " . mysqli_error($connect), E_USER_ERROR);
 
 $listProduction = array();
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['seller_name'], $row['seller_image'], $row['address'], $row['latitude'], $row['longitude'], $row['seller_description'], $row['distance']);
+    array_push($listProduction, new Product($row['product_id'], $row['seller_id'], $row['product_name'], $row['product_image'], $row['start_time'], $row['end_time'], $row['original_price'], $row['sell_price'], $row['original_quantity'], $row['remain_quantity'], $row['product_description'], $row['sell_date'], $row['status'], $row['shippable'], $seller));
+}
+
+$query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
+        `product`.`name` AS `product_name`,`product`.`image` AS `product_image`,
+        `start_time`, `end_time`, `original_price`,`sell_price`, `original_quantity`,
+        `remain_quantity`,`product`.`description` AS `product_description`,`sell_date`,`status`,`shippable`,
+        `account_id`, `currents`.`name` AS `seller_name`, `currents`.`image` AS `seller_image`,
+        `address`,`latitude`,`longitude`,`currents`.`description` AS `seller_description`, distance
+        FROM `product` JOIN 
+            (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, distance FROM 
+                    (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`,
+                            ( ( ( acos( sin(( $lat * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( $lat* pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( $lng - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance 
+                        FROM `seller` ) 
+                    markers 
+                WHERE distance <= $distance) 
+            currents 
+        ON currents.`account_id` = `product`.`seller_id`
+        WHERE DATE(`sell_date`) = CURRENT_DATE  AND `remain_quantity` = 0
+    ";
+if ($start_time != null)
+    $query = $query . " AND TIME(`start_time`) >= '$start_time' AND TIME(`end_time`) <= '$end_time' ";
+
+if($discount != null)
+    $query = $query . " AND `product`.`sell_price` / `product`.`original_price` * 100 < $discount ";
+
+$query = $query . ";";
+
+$result = mysqli_query($connect, $query) or trigger_error("Query Failed! SQL: $query - Error: " . mysqli_error($connect), E_USER_ERROR);
 
 while ($row = mysqli_fetch_assoc($result)) {
     $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['seller_name'], $row['seller_image'], $row['address'], $row['latitude'], $row['longitude'], $row['seller_description'], $row['distance']);
