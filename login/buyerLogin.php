@@ -3,12 +3,12 @@ require "../connection.php";
 require "../model/buyer.php";
 
 //get username and password from url parameters
-// $phone = $_REQUEST['phone'];
-// $password = $_REQUEST['password'];
+$phone = $_REQUEST['phone'];
+$password = $_REQUEST['password'];
 
 
-$phone = "0123456789";
-$password = "12707736894140473154801792860916528374";
+// $phone = "0123456789";
+// $password = "12707736894140473154801792860916528374";
 
 //remove special string from parameters
 $phone = mysqli_real_escape_string($connect, $phone);

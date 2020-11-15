@@ -13,6 +13,7 @@ $distance = $_REQUEST['distance'];
 $start_time = $_REQUEST['start_time'];
 $end_time = $_REQUEST['end_time'];
 $discount = $_REQUEST['discount'];
+$search_text = $_REQUEST['search_text'];
 
 //sample distance
 // $distance = 150; //$_REQUEST['distance']
@@ -25,6 +26,7 @@ $distance = mysqli_real_escape_string($connect, $distance);
 $start_time = mysqli_real_escape_string($connect, $start_time);
 $end_time = mysqli_real_escape_string($connect, $end_time);
 $discount = mysqli_real_escape_string($connect, $discount);
+$search_text = mysqli_real_escape_string($connect, $search_text);
 
 $query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
         `product`.`name` AS `product_name`,`product`.`image` AS `product_image`,
@@ -48,6 +50,9 @@ if ($start_time != null)
 
 if($discount != null)
     $query = $query . " AND `product`.`sell_price` / `product`.`original_price` * 100 < $discount ";
+
+if($search_text!=null)
+    $query = $query . " AND `product`.`name` LIKE '%$search_text%' ";
 
 $query = $query . ";";
 // $result = $connect->query($query);
@@ -83,6 +88,10 @@ if ($start_time != null)
 
 if($discount != null)
     $query = $query . " AND `product`.`sell_price` / `product`.`original_price` * 100 < $discount ";
+
+if($search_text!=null)
+    $query = $query . " AND `product`.`name` LIKE '%$search_text%' ";
+
 
 $query = $query . ";";
 
