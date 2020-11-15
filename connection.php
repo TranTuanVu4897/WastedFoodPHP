@@ -4,7 +4,7 @@ $server = "p1us8ottbqwio8hv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
 $username = "opz3hmxpxk0vfl21";
 $password = "swc44g1p3ciko317";
 $dbname = "eaur5hgdarhpvk2e";
-$port = "3306";
+$port = "3306"; 
 
 
 // $server = "localhost";
