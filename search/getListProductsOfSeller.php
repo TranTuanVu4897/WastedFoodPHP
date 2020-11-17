@@ -24,7 +24,7 @@ $result = $connect->query($query);
 
 $seller = 0;
 while ($row = mysqli_fetch_assoc($result)) {
-    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['name'], $row['name'], $row['address'], $row['latitude'], $row['longitude'], $row['description'], $row['distance']);
+    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description'], $row['distance']);
 }
 
 
@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $query = <<<EOF
 SELECT `product`.`id`,`seller_id`,`name`,`image`,`start_time`, `end_time`, `original_price`,`sell_price`,
  `original_quantity`, `remain_quantity`,`description`,`sell_date`,`status`,`shippable` FROM `product` 
- WHERE `seller_id` = 2001
+ WHERE `seller_id` = $seller_id
 EOF;
 
 $result = $connect->query($query);
