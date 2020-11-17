@@ -12,12 +12,12 @@ $dob = $_POST["dob"];
 $gender = $_POST["gender"];
 $email = $_POST["email"];
 
-// $thirdPartyId = "anh28121998";
-// $name ="Nguyen Ngoc Anh";
-// $urlImage = "";
-// $dob = "11/11/1111";
-// $gender = "Nữ";
-// $email = "anhngoc@gmail.com";
+// $thirdPartyId = "106003225752956522177";
+// $name ="Tà Mạc";
+// $urlImage = "https://lh3.googleusercontent.com/a-/AOh14GhW2mHYbPWiJtC6JO1taXV5Oeq6w59x_THxQ1dT9g";
+// $dob = "0000-00-00";
+// $gender = "1";
+// $email = "thuanphong14121997@gmail.com";
 
 $thirdPartyId = mysqli_real_escape_string($connect,$thirdPartyId);
 $name = mysqli_real_escape_string($connect, $name);
@@ -49,9 +49,8 @@ if($result->num_rows<=0){
     $query2 = "SELECT COUNT(`id`) FROM `account` WHERE id LIKE '30%'";
     $result = $connect->query($query2);
     while($row = mysqli_fetch_row($result)){
-        $count = $row[0];
+        $count = $row[0] + 1;
         $id = "30" . $count;
-        
         $username = "test" . $id;
         //echo $username;
     }
@@ -59,18 +58,14 @@ if($result->num_rows<=0){
     $query3 = "INSERT INTO `account` (`id`, `role_id`, `username`, `password`, `phone`, `third_party_id`, `email`, `created_date`, `is_active`, `modified_date`)
     VALUES ('$id', '3', '$username', '$username', NULL, '$thirdPartyId', '$email', current_timestamp(), '1', current_timestamp())";
     //$result = $connect->query($query3);
-    if(mysqli_query($connect, $query3)){
-        
-    } else{
+    if(!mysqli_query($connect, $query3)){
         echo"error";
         exit();
     }
     //insert into buyer
     $query4 = "INSERT INTO `buyer` (`account_id`, `date_of_birth`, `image`, `gender`, `modified_date`, `name`)
     VALUES ('$id', '$dob', '$urlImage', '$gender', current_timestamp(), '$name')";
-    if(mysqli_query($connect, $query4)){
-        
-    } else{
+    if(!mysqli_query($connect, $query4)){
         echo"error";
         exit();
     }
