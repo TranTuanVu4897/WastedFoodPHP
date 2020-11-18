@@ -7,15 +7,6 @@ $order_status = $_REQUEST["order_status"];
 
 
 //query
-$query = "SELECT order.id,order.buyer_id, buyer.name  as buyer_name, product.name  ,order.product_id,order.quantity , order.status  , order.total_cost,
-order.buyer_rating , order.buyer_comment , order.modified_date , buyer.image
-from `order` inner JOIN product
-on  product_id = product.id
-INNER JOIN seller
-on product.seller_id = seller.account_id
-INNER JOIN buyer
-on order.buyer_id = buyer.account_id
-where seller.account_id = $seller_id and product_id = $product_id  and order.status = $order_status";
 
 $query = "  SELECT `order`.id,
                 `order`.`buyer_id`,
