@@ -60,6 +60,7 @@ if ($search_text != null)
 $query = $query . ";";
 // $result = $connect->query($query);
 
+
 $result = mysqli_query($connect, $query) or trigger_error("Query Failed! SQL: $query - Error: " . mysqli_error($connect), E_USER_ERROR);
 
 $listProduction = array();

@@ -16,7 +16,7 @@ $password = mysqli_real_escape_string($connect, $password);
 $query = <<<EOF
         SELECT `id`, `role_id`, `username`, `password`, `phone`, 
             `third_party_id`, `email`, `created_date`, `is_active`, 
-            `name`,`image`,`address`,`latitude`,`longitude`,`description`
+            `name`,`image`,`address`,`latitude`,`longitude`,`description`,`firebase_UID`
         FROM `account` 
         JOIN `seller` 
         ON `account`.`id` = `seller`.`account_id` 
@@ -42,7 +42,7 @@ $listSeller = array();
 while($row = mysqli_fetch_assoc($result)){
     $role_id = $row['role_id'];
     $active = $row['is_active'];
-    array_push($listSeller, new Seller($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['name'],$row['image'],$row['address'],$row['latitude'],$row['longitude'],$row['description']));
+    array_push($listSeller, new Seller($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['name'],$row['image'],$row['address'],$row['latitude'],$row['longitude'],$row['description'] ,$row['firebase_UID']));
 }
 
 if($role_id!=2){
