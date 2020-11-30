@@ -14,7 +14,7 @@ $start_time = $_REQUEST['start_time'];
 $end_time = $_REQUEST['end_time'];
 $discount = $_REQUEST['discount'];
 $search_text = $_REQUEST['search_text'];
-
+$buyer_id = $_REQUEST['buyer_id'];
 //sample distance
 // $distance = 150; //$_REQUEST['distance']
 
@@ -27,6 +27,7 @@ $start_time = mysqli_real_escape_string($connect, $start_time);
 $end_time = mysqli_real_escape_string($connect, $end_time);
 $discount = mysqli_real_escape_string($connect, $discount);
 $search_text = mysqli_real_escape_string($connect, $search_text);
+$buyer_id = mysqli_real_escape_string($connect, $buyer_id);
 
 $query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
         `product`.`name` AS `product_name`,`product`.`image` AS `product_image`,
@@ -39,15 +40,17 @@ $query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
                     (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`,
                             ( ( ( acos( sin(( $lat * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( $lat* pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( $lng - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance 
                         FROM `seller` ) 
-                    markers ";
+                    markers 
+                    JOIN `list_follow` ON markers.`account_id` = `list_follow`.`seller_id` 
+                    WHERE `list_follow`.`buyer_id` = $buyer_id ";
 if ($distance != null)
-    $query = $query . " WHERE distance <= $distance ";
+    $query = $query . " AND distance <= $distance ";
 
 $query = $query . ") currents 
         ON currents.`account_id` = `product`.`seller_id`
         WHERE DATE(`sell_date`) = CURRENT_DATE AND `remain_quantity` > 0
     ";
-
+    
 if ($start_time != null)
     $query = $query . " AND TIME(`start_time`) >= '$start_time' AND TIME(`end_time`) <= '$end_time' ";
 
