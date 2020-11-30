@@ -8,9 +8,21 @@ require "../model/buyer.php";
 $thirdPartyId = $_POST["thirdPartyId"];
 $name = $_POST["name"];
 $urlImage = $_POST["urlImage"];
+//$dob = $_POST["dob"];
+$dob = "0000-00-00";
+$gender = $_POST["gender"];
+$email = $_POST["email"];
+$firebase_UID = $_POST["firebase_UID"];
+
+/*
+$thirdPartyId = $_POST["thirdPartyId"];
+$name = $_POST["name"];
+$urlImage = $_POST["urlImage"];
 $dob = $_POST["dob"];
 $gender = $_POST["gender"];
 $email = $_POST["email"];
+$firebase_UID = $_POST["firebase_UID"];
+*/
 
 // $thirdPartyId = "106003225752956522177";
 // $name ="Tà Mạc";
@@ -25,7 +37,7 @@ $urlImage = mysqli_real_escape_string($connect, $urlImage);
 $dob = mysqli_real_escape_string($connect, $dob);
 $gender = mysqli_real_escape_string($connect, $gender);
 $email = mysqli_real_escape_string($connect, $email);
-
+$firebase_UID = mysqli_real_escape_string($connect, $firebase_UID);
 
 $query1 = <<<EOF
         SELECT `id`, `role_id`, `username`, `password`, `phone`, 
@@ -55,18 +67,22 @@ if ($result->num_rows <= 0) {
         //echo $username;
     }
     //insert into account
-    $query3 = "INSERT INTO `account` (`id`, `role_id`, `username`, `password`, `phone`, `third_party_id`, `email`, `created_date`, `is_active`, `modified_date`)
-    VALUES ('$id', '3', '$username', '$username', NULL, '$thirdPartyId', '$email', current_timestamp(), '1', current_timestamp())";
+    $query3 = "INSERT INTO `account` (`id`, `role_id`, `username`, `password`, `phone`, `third_party_id`, `email`, `created_date`, `is_active`, `modified_date`, `firebase_UID`)
+    VALUES ('$id', '3', '$username', '$username', NULL, '$thirdPartyId', '$email', current_timestamp(), '1', current_timestamp() , '$firebase_UID')";
+      $result = mysqli_query($connect,$query3) or trigger_error("Query Failed! SQL: $query3 - Error: ".mysqli_error($connect), E_USER_ERROR);
     //$result = $connect->query($query3);
+    
+    /*
     if (!mysqli_query($connect, $query3)) {
-        echo "error";
+        echo "error query 3";
         exit();
     }
+    */
     //insert into buyer
     $query4 = "INSERT INTO `buyer` (`account_id`, `date_of_birth`, `image`, `gender`, `modified_date`, `name`)
     VALUES ('$id', '$dob', '$urlImage', '$gender', current_timestamp(), '$name')";
     if (!mysqli_query($connect, $query4)) {
-        echo "error";
+        echo "error query 4";
         exit();
     }
 }
