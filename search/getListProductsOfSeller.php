@@ -14,7 +14,7 @@ $lng = mysqli_real_escape_string($connect, $lng);
 
 //get seller info
 $query = <<<EOF
-    SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`,
+    SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, `rating`,
     ( ( ( acos( sin(( $lat * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( $lat* pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( $lng - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance 
     FROM `seller`
     WHERE `account_id` = $seller_id
@@ -24,7 +24,7 @@ $result = $connect->query($query);
 
 $seller = 0;
 while ($row = mysqli_fetch_assoc($result)) {
-    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description'], $row['distance']);
+    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description'], $row['distance'],$row['rating']);
 }
 
 

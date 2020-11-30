@@ -8,7 +8,9 @@ class Seller extends Account{
     public $latitude;
     public $longitude;
     public $description;
-    function __construct($id,$role_id,$username,$password,$phone,$third_party_id,$email,$create_date,$is_active,$name,$image,$address,$latitude,$longitude,$description)
+    public $distance;
+    public $rating;
+    function __construct($id,$role_id,$username,$password,$phone,$third_party_id,$email,$create_date,$is_active,$name,$image,$address,$latitude,$longitude,$description,$distance,$rating)
     {
         parent::__construct($id,$role_id,$username,$password,$phone,$third_party_id,$email,$create_date,$is_active);
         $this->name=$name;
@@ -17,6 +19,8 @@ class Seller extends Account{
         $this->latitude=$latitude;
         $this->longitude=$longitude;
         $this->description=$description;
+        $this->distance = $distance;
+        $this->rating=$rating;
     }
 
 }
