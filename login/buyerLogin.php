@@ -50,7 +50,7 @@ $listBuyer = array();
 while($row = mysqli_fetch_assoc($result)){
     $role_id = $row['role_id'];
     $active = $row['is_active'];
-    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender'] ,$row['firebase_UID']));
+    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['firebase_UID'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender'] ));
 }
 //get role_id and id
 

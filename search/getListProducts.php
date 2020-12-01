@@ -33,10 +33,10 @@ $query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
         `start_time`, `end_time`, `original_price`,`sell_price`, `original_quantity`,
         `remain_quantity`,`product`.`description` AS `product_description`,`sell_date`,`status`,`shippable`,
         `account_id`, `currents`.`name` AS `seller_name`, `currents`.`image` AS `seller_image`,
-        `address`,`latitude`,`longitude`,`currents`.`description` AS `seller_description`, `firebase_UID`, distance
+        `address`,`latitude`,`longitude`,`currents`.`description` AS `seller_description`, `firebase_UID`,`rating`, distance
         FROM `product` JOIN 
-            (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, `firebase_UID`, distance FROM 
-                    (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, `firebase_UID`
+            (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, `firebase_UID`,`rating`, distance FROM 
+                    (   SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, `firebase_UID`, `rating`,
                             ( ( ( acos( sin(( $lat * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( $lat* pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( $lng - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance 
                         FROM `seller` 
                         JOIN `account` ON `account`.`id` = `seller`.`account_id`) 
@@ -61,13 +61,12 @@ if ($search_text != null)
 $query = $query . ";";
 // $result = $connect->query($query);
 
-
 $result = mysqli_query($connect, $query) or trigger_error("Query Failed! SQL: $query - Error: " . mysqli_error($connect), E_USER_ERROR);
 
 $listProduction = array();
 
 while ($row = mysqli_fetch_assoc($result)) {
-    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, $row['firebase_UID'], $row['seller_name'], $row['seller_image'], $row['address'], $row['latitude'], $row['longitude'], $row['seller_description'], $row['distance']);
+    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['firebase_UID'], $row['seller_name'], $row['seller_image'], $row['address'], $row['latitude'], $row['longitude'], $row['seller_description'], $row['distance'], $row['rating']);
     array_push($listProduction, new Product($row['product_id'], $row['seller_id'], $row['product_name'], $row['product_image'], $row['start_time'], $row['end_time'], $row['original_price'], $row['sell_price'], $row['original_quantity'], $row['remain_quantity'], $row['product_description'], $row['sell_date'], $row['status'], $row['shippable'], $seller));
 }
 

@@ -14,9 +14,10 @@ $lng = mysqli_real_escape_string($connect, $lng);
 
 //get seller info
 $query = <<<EOF
-    SELECT `account_id`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, `rating`,
+    SELECT `account_id`,`firebase_UID`, `name`, `image`,`address`,`latitude`,`longitude`,`description`, `rating`,
     ( ( ( acos( sin(( $lat * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( $lat* pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( $lng - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance 
-    FROM `seller`
+    FROM `seller` 
+    JOIN `account` ON `account`.`id` = `seller`.`account_id` 
     WHERE `account_id` = $seller_id
 EOF;
 
@@ -24,7 +25,7 @@ $result = $connect->query($query);
 
 $seller = 0;
 while ($row = mysqli_fetch_assoc($result)) {
-    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description'], $row['distance'],$row['rating']);
+    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null,$row['firebase_UID'], $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description'], $row['distance'],$row['rating']);
 }
 
 

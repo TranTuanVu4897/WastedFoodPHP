@@ -26,7 +26,7 @@ $listBuyer = array();
 
 while($row = mysqli_fetch_assoc($result)){
     echo $row['phone'];
-    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
+    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],null, $row['name'],$row['date_of_birth'],$row['image'],$row['gender']));
 }
 //return json object if not error
 echo json_encode($listBuyer);

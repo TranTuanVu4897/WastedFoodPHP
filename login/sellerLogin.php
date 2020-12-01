@@ -27,7 +27,7 @@ EOF;
 //execute query
 $result = $connect->query($query);
 
-if($result->num_rows<=0){
+if ($result->num_rows <= 0) {
     //return error
     echo "not exist account";
     $connect->close();
@@ -39,20 +39,20 @@ $active = true;
 
 $listSeller = array();
 
-while($row = mysqli_fetch_assoc($result)){
+while ($row = mysqli_fetch_assoc($result)) {
     $role_id = $row['role_id'];
     $active = $row['is_active'];
-    array_push($listSeller, new Seller($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['name'],$row['image'],$row['address'],$row['latitude'],$row['longitude'],$row['description'] ,$row['firebase_UID']));
+    array_push($listSeller, new Seller($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'], $row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], null, $row['name'], $row['image'], $row['address'], $row['latitude'], $row['longitude'], $row['description'], null, null));
 }
 
-if($role_id!=2){
+if ($role_id != 2) {
     //return error
     echo "not match role";
     $connect->close();
     exit();
 }
 
-if(!$active){
+if (!$active) {
     //return error
     echo "account is locked";
     exit();
@@ -77,4 +77,3 @@ if(!$active){
 //return json object if not error
 echo json_encode($listSeller);
 $connect->close();
-?>

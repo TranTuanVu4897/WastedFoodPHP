@@ -42,7 +42,7 @@ $firebase_UID = mysqli_real_escape_string($connect, $firebase_UID);
 $query1 = <<<EOF
         SELECT `id`, `role_id`, `username`, `password`, `phone`, 
             `third_party_id`, `email`, `created_date`, `is_active`, 
-            `date_of_birth`, `name`, `image`, `gender`
+            `date_of_birth`, `name`, `image`, `gender`,`firebase_UID`
         FROM `account` 
         JOIN `buyer` 
         ON `account`.`id` = `buyer`.`account_id` 
@@ -69,9 +69,9 @@ if ($result->num_rows <= 0) {
     //insert into account
     $query3 = "INSERT INTO `account` (`id`, `role_id`, `username`, `password`, `phone`, `third_party_id`, `email`, `created_date`, `is_active`, `modified_date`, `firebase_UID`)
     VALUES ('$id', '3', '$username', '$username', NULL, '$thirdPartyId', '$email', current_timestamp(), '1', current_timestamp() , '$firebase_UID')";
-      $result = mysqli_query($connect,$query3) or trigger_error("Query Failed! SQL: $query3 - Error: ".mysqli_error($connect), E_USER_ERROR);
+    $result = mysqli_query($connect, $query3) or trigger_error("Query Failed! SQL: $query3 - Error: " . mysqli_error($connect), E_USER_ERROR);
     //$result = $connect->query($query3);
-    
+
     /*
     if (!mysqli_query($connect, $query3)) {
         echo "error query 3";
@@ -93,6 +93,6 @@ $result = $connect->query($query1);
 while ($row = mysqli_fetch_assoc($result)) {
     $role_id = $row['role_id'];
     $active = $row['is_active'];
-    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'], $row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['name'], $row['date_of_birth'], $row['image'], $row['gender']));
+    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'], $row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['firebase_UID'], $row['name'], $row['date_of_birth'], $row['image'], $row['gender']));
 }
 echo json_encode($listBuyer);
