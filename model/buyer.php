@@ -6,9 +6,9 @@ class Buyer extends Account{
     public $image;
     public $gender;
 
-    function __construct($id,$role_id,$username,$password,$phone,$third_party_id,$email,$create_date,$is_active,$name,$date_of_birth,$image,$gender)
+    function __construct($id,$role_id,$username,$password,$phone,$third_party_id,$email,$create_date,$is_active,$firebase_UID,$name,$date_of_birth,$image,$gender)
     {
-        parent::__construct($id,$role_id,$username,$password,$phone,$third_party_id,$email,$create_date,$is_active);
+        parent::__construct($id,$role_id,$username,$password,$phone,$third_party_id,$email,$create_date,$is_active,$firebase_UID);
         $this->name=$name;
         $this->date_of_birth = $date_of_birth;
         $this->image =$image;
