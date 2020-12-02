@@ -20,7 +20,8 @@ $query = "  SELECT `order`.id,
                 `order`.`buyer_comment`,
                 `order`.`modified_date`,
                 `buyer`.`image`,
-                `account`.`firebase_UID`
+                `account`.`firebase_UID`,
+                `product`.`name` AS 'product_name'
             FROM `order`
             INNER JOIN `product` 
                     ON `product_id` = `product`.`id`
@@ -40,7 +41,7 @@ $result = $connect->query($query);
 //Class order
 class Order
 {
-    function Order($id, $buyer_id, $buyerName, $nameProduct, $product_id, $quantity, $status, $total_cost, $buyer_rating, $buyer_comment, $image , $firebase_UID)
+    function Order($id, $buyer_id, $buyerName, $nameProduct, $product_id, $quantity, $status, $total_cost, $buyer_rating, $buyer_comment, $image , $firebase_UID , $product_name)
     {
         $this->id = $id;
         $this->buyer_id = $buyer_id;
@@ -54,6 +55,7 @@ class Order
         $this->buyer_comment = $buyer_comment;
         $this->buyer_avatar = $image;
         $this->firebase_UID = $firebase_UID;
+        $this->product_name = $product_name;
     }
 }
 
@@ -61,7 +63,7 @@ class Order
 $listOrder = array();
 
 while ($row = mysqli_fetch_assoc($result)) {
-    array_push($listOrder, new Order($row['id'], $row['buyer_id'], $row['buyer_name'], $row['name'],  $row['product_id'], $row['quantity'], $row['status'], $row['total_cost'], $row['buyer_rating'], $row['buyer_comment'], $row['image'] , $row['firebase_UID']));
+    array_push($listOrder, new Order($row['id'], $row['buyer_id'], $row['buyer_name'], $row['name'],  $row['product_id'], $row['quantity'], $row['status'], $row['total_cost'], $row['buyer_rating'], $row['buyer_comment'], $row['image'] , $row['firebase_UID'], $row['product_name'] ));
 }
 
 //change array to json
