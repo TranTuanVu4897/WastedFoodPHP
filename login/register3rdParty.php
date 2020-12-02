@@ -12,12 +12,12 @@ $dob = $_POST["dob"];
 $gender = $_POST["gender"];
 $email = $_POST["email"];
 
-// $thirdPartyId = "anh28121998";
-// $name ="Nguyen Ngoc Anh";
-// $urlImage = "";
-// $dob = "11/11/1111";
-// $gender = "Nữ";
-// $email = "anhngoc@gmail.com";
+// $thirdPartyId = "104878377572589832820";
+// $name ="(K12_HN) Pham Thanh Tung";
+// $urlImage = "https://lh3.googleusercontent.com/a-/AOh14GjtPohazkNt3VAfltq4AL7O2UjzI312zl9sF8Y8BQ";
+// $dob = "1998-24-01";
+// $gender = "1";
+// $email = "tungptse05613@fpt.edu.vn";
 
 $thirdPartyId = mysqli_real_escape_string($connect,$thirdPartyId);
 $name = mysqli_real_escape_string($connect, $name);
