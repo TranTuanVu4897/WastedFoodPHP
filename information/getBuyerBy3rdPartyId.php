@@ -19,7 +19,7 @@ $query = <<<EOF
         ON `account`.`id` = `buyer`.`account_id` 
         WHERE `third_party_id` = '$third_party_id' ;
 EOF;
-
+echo $query;
 // $result = $connect->query($query);
 $result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 
