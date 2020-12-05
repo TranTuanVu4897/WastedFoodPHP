@@ -53,7 +53,7 @@ if ($start_time != null)
     $query = $query . " AND TIME(`start_time`) >= '$start_time' AND TIME(`end_time`) <= '$end_time' ";
 
 if ($discount != null)
-    $query = $query . " AND `product`.`sell_price` / `product`.`original_price` * 100 < $discount ";
+    $query = $query . " AND (100 - `product`.`sell_price` / `product`.`original_price` * 100) < $discount ";
 
 if ($search_text != null)
     $query = $query . " AND `product`.`name` LIKE '%$search_text%' ";
