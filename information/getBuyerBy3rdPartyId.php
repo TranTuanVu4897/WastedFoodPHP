@@ -3,7 +3,7 @@ require "../connection.php";
 require "../model/buyer.php";
 
 //get username and password from url parameters
-$third_party_id = $_REQUEST['thirdPartyID'];
+$third_party_id = $_REQUEST['thirdPartyId'];
 
 
 $third_party_id = mysqli_real_escape_string($connect, $third_party_id);
