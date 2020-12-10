@@ -32,7 +32,6 @@ $result = $connect->query($query);
 $follow_total = 0;
 while($row = mysqli_fetch_assoc($result)){
     $follow_total = $row['follow_total'];
-    echo $follow_total;
 }
 
 $query = <<<EOF
