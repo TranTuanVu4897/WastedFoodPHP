@@ -5,11 +5,11 @@ require "../model/buyer.php";
 //get 3rd party id
 
 
-$email = $_POST["email"];
+$emailUser = $_GET["emailUser"];
 
-$phone = mysqli_real_escape_string($connect,$email);
+$emailUser = mysqli_real_escape_string($connect,$emailUser);
 
-$query = "SELECT email from account WHERE email = '$email'";
+$query = "SELECT `email` from `account` WHERE `email` = '$emailUser'";
 $result = $connect->query($query);
 
 if($result->num_rows<=0){

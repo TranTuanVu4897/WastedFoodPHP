@@ -77,10 +77,12 @@ class Product{
 
 }
 
+
 $listProduct = array();
 
 while ($row = mysqli_fetch_assoc($result)) {
+    $static = new Product($row['totalProductSelling'], $row['totalProduct'] ,$row['totalOrderBuying'], $row['totalOrderSuccess'] , $row['totalOrderCancel'], $row['totalFollower']) ;
     array_push($listProduct, new Product($row['totalProductSelling'], $row['totalProduct'] ,$row['totalOrderBuying'], $row['totalOrderSuccess'] , $row['totalOrderCancel'], $row['totalFollower']  ));
 }
 
-echo json_encode($listProduct);
+echo json_encode($static);
