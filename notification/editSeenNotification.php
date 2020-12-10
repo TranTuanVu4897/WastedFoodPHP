@@ -1,7 +1,7 @@
 <?php
 require "../connection.php";
-
-$receiver_id = $_POST["receiver_id"];
+$receiver_id = "2001";
+// $receiver_id = $_POST["receiver_id"];
 
 $query = "update Notification set 
 seen = TRUE
