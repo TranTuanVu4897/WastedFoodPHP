@@ -17,6 +17,7 @@ $connect = mysqli_connect($server, $username, $password, $dbname, $port);
 
 mysqli_query($connect, "SET NAMES 'utf8'");
 
+echo "success";
 //Check connection
 if ($connect->connect_error) {
     die("Connection failed: " . $connect->connect_error);
