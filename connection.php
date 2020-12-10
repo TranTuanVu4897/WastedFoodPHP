@@ -21,3 +21,4 @@ mysqli_query($connect, "SET NAMES 'utf8'");
 if ($connect->connect_error) {
     die("Connection failed: " . $connect->connect_error);
 }
+echo "success";
