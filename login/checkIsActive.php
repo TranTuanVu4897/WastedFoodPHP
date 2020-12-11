@@ -4,7 +4,7 @@ require "../model/buyer.php";
 
 //get 3rd party id
 
-$account_id = $_GET["id"];
+$account_id = $_REQUEST["id"];
 
 $account_id = mysqli_real_escape_string($connect,$account_id);
 
