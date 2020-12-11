@@ -4,7 +4,7 @@ require "../model/buyer.php";
 
 //get 3rd party id
 
-$account_id = $_REQUEST["id"];
+$account_id = $_REQUEST["account_id"];
 
 $account_id = mysqli_real_escape_string($connect,$account_id);
 
@@ -16,7 +16,7 @@ while($row = mysqli_fetch_assoc($result)){
 }
 //get role_id and id
 
-if($active== 0){
+if(!$active){
     //return error
     echo "account is locked";
     exit();
