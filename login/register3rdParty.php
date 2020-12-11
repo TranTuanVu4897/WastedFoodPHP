@@ -79,4 +79,16 @@ while ($row = mysqli_fetch_assoc($result)) {
     $active = $row['is_active'];
     array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'], $row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['firebase_UID'], $row['name'], $row['date_of_birth'], $row['image'], $row['gender']));
 }
+while($row = mysqli_fetch_assoc($result)){
+    $role_id = $row['role_id'];
+    $active = $row['is_active'];
+    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['firebase_UID'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender'] ));
+}
+//get role_id and id
+
+if(!$active){
+    //return error
+    echo "account is locked";
+    exit();
+}
 echo json_encode($listBuyer);

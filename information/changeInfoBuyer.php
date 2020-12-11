@@ -11,17 +11,17 @@ $account_id = $_POST['account_id'];
 $name = $_POST['name'];
 $phone = $_POST['phone'];
 $urlImage = $_POST['urlImage'];
-$date_of_birth = $_POST['date_of_birth'];
+$dob = $_POST['dob'];
 $gender = $_POST['gender'];
 
 $account_id = mysqli_real_escape_string($connect, $account_id);
 $name = mysqli_real_escape_string($connect, $name);
 $phone = mysqli_real_escape_string($connect, $phone);
-$image = mysqli_real_escape_string($connect, $image);
-$date_of_birth = mysqli_real_escape_string($connect, $date_of_birth);
+$urlImage = mysqli_real_escape_string($connect, $urlImage);
+$dob = mysqli_real_escape_string($connect, $dob);
 $gender = mysqli_real_escape_string($connect, $gender);
 
-$query1 = "UPDATE `buyer` SET `date_of_birth`='$date_of_birth',`image`='$image',`gender`=$gender,`name`='$name' WHERE `account_id` = $account_id";
+$query1 = "UPDATE `buyer` SET `date_of_birth`='$dob',`image`='$urlImage',`gender`=$gender,`name`='$name' WHERE `account_id` = $account_id";
 $result = $connect->query($query1);
 $query2 = "UPDATE `account` SET `phone` = '$phone' WHERE `id` = $account_id";
 $result = $connect->query($query2);
@@ -29,13 +29,13 @@ $result = $connect->query($query2);
 if(mysqli_query($connect, $query1)){
  
 }else{
-    echo "failed";
+    echo "failed1";
     exit();
 }
 if(mysqli_query($connect, $query2)){
 
 }else{
-    echo "failed";
+    echo "failed2";
     exit();
 }
 

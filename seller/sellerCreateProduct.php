@@ -26,7 +26,7 @@ $status = $_POST['status'];
 $query = "INSERT INTO `product` (`seller_id`,`name`,`image`,`start_time`,`end_time`,`original_price` , `sell_price` , `original_quantity` , `remain_quantity` , `description` , `sell_date` , `status` ) VALUES ('$seller_id','$name','$image', '$start_time' ,'$end_time', '$original_price' , '$sell_price' , '$original_quantity' , '$remain_quantity' , '$description' , '$sell_date' , '$status' )";
 
 //trigger bug
-//$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
+// $result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 
 if(mysqli_query($connect,$query))
 {
