@@ -4,7 +4,7 @@ require "../connection.php";
 $name = $_POST["username"];
 $address = $_POST["address"];
 $id = $_POST["id"];
-
+$image = $_POST["image"];
 $description = $_POST["description"];
 
 //$name = "123";
@@ -17,7 +17,8 @@ $description = $_POST["description"];
 $query = "update Seller set 
 address = '$address',
 name = '$name',
-description = '$description'
+description = '$description',
+`image` = '$image'
 where account_id = '$id'";
 
 if(mysqli_query($connect,$query))
