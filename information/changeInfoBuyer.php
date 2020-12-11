@@ -21,7 +21,7 @@ $urlImage = mysqli_real_escape_string($connect, $urlImage);
 $dob = mysqli_real_escape_string($connect, $dob);
 $gender = mysqli_real_escape_string($connect, $gender);
 
-$query1 = "UPDATE `buyer` SET `dob`='$date_of_birth',`image`='$urlImage',`gender`=$gender,`name`='$name' WHERE `account_id` = $account_id";
+$query1 = "UPDATE `buyer` SET `dob`='$dob',`image`='$urlImage',`gender`=$gender,`name`='$name' WHERE `account_id` = $account_id";
 $result = $connect->query($query1);
 $query2 = "UPDATE `account` SET `phone` = '$phone' WHERE `id` = $account_id";
 $result = $connect->query($query2);
@@ -29,13 +29,13 @@ $result = $connect->query($query2);
 if(mysqli_query($connect, $query1)){
  
 }else{
-    echo "failed";
+    echo "failed1";
     exit();
 }
 if(mysqli_query($connect, $query2)){
 
 }else{
-    echo "failed";
+    echo "failed2";
     exit();
 }
 
