@@ -16,7 +16,7 @@ while($row = mysqli_fetch_assoc($result)){
 }
 //get role_id and id
 
-if(!$active){
+if($active== 0){
     //return error
     echo "account is locked";
     exit();
