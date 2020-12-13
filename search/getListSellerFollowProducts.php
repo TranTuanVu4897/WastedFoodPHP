@@ -5,6 +5,7 @@ require "../model/seller.php";
 //sample place
 // $lat = 21.0110168;
 // $lng = 105.5182143;
+$page = 1;
 
 $lat = $_REQUEST['lat'];
 $lng = $_REQUEST['lng'];
@@ -29,6 +30,16 @@ $discount = mysqli_real_escape_string($connect, $discount);
 $search_text = mysqli_real_escape_string($connect, $search_text);
 $buyer_id = mysqli_real_escape_string($connect, $buyer_id);
 
+if (!empty($_REQUEST['page'])) {
+    $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+    if (false === $page) {
+        $page = 1;
+    }
+}
+
+$items_per_page = 5;
+$offset = ($page - 1) * $items_per_page;
+
 $query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
         `product`.`name` AS `product_name`,`product`.`image` AS `product_image`,
         `start_time`, `end_time`, `original_price`,`sell_price`, `original_quantity`,
@@ -50,6 +61,7 @@ if ($distance != null)
 $query = $query . ") currents 
         ON currents.`account_id` = `product`.`seller_id`
         WHERE DATE(`sell_date`) = CURRENT_DATE AND `remain_quantity` > 0
+        AND TIME(`end_time`) > CURRENT_TIME()
     ";
 
 if ($start_time != null)
@@ -61,16 +73,26 @@ if ($discount != null)
 if ($search_text != null)
     $query = $query . " AND `product`.`name` LIKE '%$search_text%' ";
 
-$query = $query . ";";
-// $result = $connect->query($query);
+$query = $query . "ORDER BY `distance` ASC, `remain_quantity` DESC";
 
-$result = mysqli_query($connect, $query) or trigger_error("Query Failed! SQL: $query - Error: " . mysqli_error($connect), E_USER_ERROR);
+$result = mysqli_query($connect, $query . ";");
+$total_rows = $result->num_rows;
+$total_pages = ceil($total_rows / $items_per_page);
 
-$listProduction = array();
+if ($page <= $total_pages) {
+    $query = $query . " LIMIT $offset ,$items_per_page;";
+    // $result = $connect->query($query);
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['firebase_UID'], $row['seller_name'], $row['seller_image'], $row['address'], $row['latitude'], $row['longitude'], $row['seller_description'], $row['distance'], $row['rating']);
-    array_push($listProduction, new Product($row['product_id'], $row['seller_id'], $row['product_name'], $row['product_image'], $row['start_time'], $row['end_time'], $row['original_price'], $row['sell_price'], $row['original_quantity'], $row['remain_quantity'], $row['product_description'], $row['sell_date'], $row['status'], $row['shippable'], $seller));
+    $result = mysqli_query($connect, $query) or trigger_error("Query Failed! SQL: $query - Error: " . mysqli_error($connect), E_USER_ERROR);
+
+    $listProduction = array();
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $seller = new Seller($row['account_id'], null, null, null, null, null, null, null, null, $row['firebase_UID'], $row['seller_name'], $row['seller_image'], $row['address'], $row['latitude'], $row['longitude'], $row['seller_description'], $row['distance'], $row['rating']);
+        array_push($listProduction, new Product($row['product_id'], $row['seller_id'], $row['product_name'], $row['product_image'], $row['start_time'], $row['end_time'], $row['original_price'], $row['sell_price'], $row['original_quantity'], $row['remain_quantity'], $row['product_description'], $row['sell_date'], $row['status'], $row['shippable'], $seller));
+    }
+
+    echo json_encode($listProduction);
+} else {
+    echo "end";
 }
-
-echo json_encode($listProduction);
