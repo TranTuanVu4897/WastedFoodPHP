@@ -9,7 +9,7 @@ $emailUser = $_GET["emailUser"];
 
 $emailUser = mysqli_real_escape_string($connect,$emailUser);
 
-$query = "SELECT `email` from `account` WHERE `email` = '$emailUser' and role_id = '2'";
+$query = "SELECT `email` from `account` WHERE `email` = '$emailUser'";
 $result = $connect->query($query);
 
 if($result->num_rows<=0){
