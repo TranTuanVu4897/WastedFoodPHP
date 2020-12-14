@@ -77,6 +77,7 @@ $query = $query . "ORDER BY `distance` ASC, `remain_quantity` DESC";
 
 $result = mysqli_query($connect, $query . ";");
 $total_rows = $result->num_rows;
+echo $total_rows;
 $total_pages = ceil($total_rows / $items_per_page);
 
 if ($page <= $total_pages) {
