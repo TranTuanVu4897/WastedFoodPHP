@@ -35,7 +35,7 @@ if ($result->num_rows <= 0) {
 }
 
 $role_id = 0;
-$active = true;
+$active = 0;
 
 $listSeller = array();
 
@@ -52,7 +52,7 @@ if ($role_id != 2) {
     exit();
 }
 
-if (!$active) {
+if ($active != 1) {
     //return error
     echo "account is locked";
     exit();
