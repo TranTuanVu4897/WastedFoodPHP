@@ -74,7 +74,7 @@ if ($search_text != null)
     $query = $query . " AND `product`.`name` LIKE '%$search_text%' ";
 
 $query = $query . "ORDER BY `distance` ASC, `remain_quantity` DESC";
-echo $query;
+
 $result = mysqli_query($connect, $query . ";");
 $total_rows = $result->num_rows;
 $total_pages = ceil($total_rows / $items_per_page);
