@@ -22,15 +22,15 @@ $id = mysqli_real_escape_string($connect, $id);
 $query = <<<EOF
     SELECT COUNT(*) AS `follow_total`
     FROM `seller`
-    JOIN `follow`
-    ON `seller`.`account_id` = `follow`.`seller_id`
-    WHERE `seller_id` = $id
+    JOIN `list_follow`
+    ON `seller`.`account_id` = `list_follow`.`seller_id`
+    WHERE `seller_id` = $id AND `list_follow`.`is_follow` = 1
 EOF;
 
 $result = $connect->query($query);
 
 $follow_total = 0;
-while($row = mysqli_fetch_assoc($result)){
+while ($row = mysqli_fetch_assoc($result)) {
     $follow_total = $row['follow_total'];
 }
 
@@ -44,19 +44,20 @@ EOF;
 
 $result = $connect->query($query);
 $product_total = 0;
-while($row = mysqli_fetch_assoc($result)){
+while ($row = mysqli_fetch_assoc($result)) {
     $product_total = $row['product_total'];
-
 }
 
-class SellerExtraInfo{
+class SellerExtraInfo
+{
     public $follow_total;
     public $product_total;
-    public function __construct($follow_total, $product_total) {
+    public function __construct($follow_total, $product_total)
+    {
         $this->follow_total = $follow_total;
         $this->product_total = $product_total;
     }
 }
 
 
-echo json_encode(new SellerExtraInfo($follow_total,$product_total));
+echo json_encode(new SellerExtraInfo($follow_total, $product_total));
