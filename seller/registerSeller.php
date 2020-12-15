@@ -3,17 +3,17 @@ require "../connection.php";
 
 
 $role = 2;
-$name = $_REQUEST['name'];
-$description = $_REQUEST['description'];
-$password = $_REQUEST['password'];
-$phone = $_REQUEST['phone'];
-$email = $_REQUEST['email'];
-$latitude = $_REQUEST['latitude'];
-$longitude = $_REQUEST['longitude'];
-$address = $_REQUEST['address'];
-$imageURL = $_REQUEST['imageURL'];
-$firebase_UID = $_REQUEST['firebase_UID'];
-$username = $_REQUEST['username'];
+$name = $_POST['name'];
+$description = $_POST['description'];
+$password = $_POST['password'];
+$phone = $_POST['phone'];
+$email = $_POST['email'];
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
+$address = $_POST['address'];
+$imageURL = $_POST['imageURL'];
+$firebase_UID = $_POST['firebase_UID'];
+$username = $_POST['username'];
 
 
 

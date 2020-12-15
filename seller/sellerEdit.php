@@ -7,6 +7,7 @@ $id = $_POST["id"];
 $image = $_POST["image"];
 $description = $_POST["description"];
 
+
 //$name = "123";
 //$address = "123 hoa lac";
 //$id = 1;
@@ -17,9 +18,11 @@ $description = $_POST["description"];
 $query = "update Seller set 
 address = '$address',
 name = '$name',
-description = '$description',
-`image` = '$image'
-where account_id = '$id'";
+description = '$description', ";
+if($image!="")
+$query = $query . "`image` = '$image'";
+
+$query = $query . "where account_id = '$id'";
 
 if(mysqli_query($connect,$query))
 {
