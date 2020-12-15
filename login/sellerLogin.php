@@ -52,9 +52,15 @@ if ($role_id != 2) {
     exit();
 }
 
-if ($active != 1) {
+if ($active == 0) {
     //return error
     echo "account is locked";
+    exit();
+}
+
+if ($active == 2) {
+    //return error
+    echo "account is not active";
     exit();
 }
 
