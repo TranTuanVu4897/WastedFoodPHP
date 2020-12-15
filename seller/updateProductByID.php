@@ -8,11 +8,15 @@ $originalPrice = $_POST["originalPrice"];
 $sellPrice = $_POST["sellPrice"];
 $openTime = $_POST["openTime"];
 $closeTime = $_POST["closeTime"];
+$remainQuantity = $_POST["remainQuantity"];
+
+
 
 $query = "update Product set 
 name = '$name',
 original_Price = '$originalPrice',
-sell_Price = '$sellPrice'
+sell_Price = '$sellPrice',
+remain_quantity = '$remainQuantity'
 where seller_id = '$seller_id'
 and id = '$id'";
 
