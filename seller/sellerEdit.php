@@ -18,13 +18,13 @@ $description = $_POST["description"];
 $query = "update Seller set 
 address = '$address',
 name = '$name',
-description = '$description', ";
+description = '$description' ";
 if($image!="")
-$query = $query . "`image` = '$image'";
+$query = $query . ",`image` = '$image'";
 
 $query = $query . "where account_id = '$id'";
 
-$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
+//$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 if(mysqli_query($connect,$query))
 {
 
