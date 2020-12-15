@@ -34,7 +34,7 @@ $query1 = <<<EOF
 EOF;
 $result = $connect->query($query1);
 $role_id = 0;
-$active = true;
+$active = 1;
 $listBuyer = array();
 
 
@@ -43,8 +43,8 @@ if ($result->num_rows <= 0) {
     //take count for get number
 
     $query2 = "SELECT COUNT(`id`) FROM `account` WHERE id LIKE '30%'";
-    $result = $connect->query($query2);
-    while ($row = mysqli_fetch_row($result)) {
+    $result2 = $connect->query($query2);
+    while ($row = mysqli_fetch_row($result2)) {
         $count = $row[0] + 1;
         $id = "30" . $count;
         $username = "test" . $id;
@@ -53,7 +53,7 @@ if ($result->num_rows <= 0) {
     //insert into account
     $query3 = "INSERT INTO `account` (`id`, `role_id`, `username`, `password`, `phone`, `third_party_id`, `email`, `created_date`, `is_active`, `modified_date`, `firebase_UID`)
     VALUES ('$id', '3', '$username', '$username', NULL, '$thirdPartyId', '$email', current_timestamp(), '1', current_timestamp() , '$firebase_UID')";
-    $result = mysqli_query($connect, $query3) or trigger_error("Query Failed! SQL: $query3 - Error: " . mysqli_error($connect), E_USER_ERROR);
+    $result3 = mysqli_query($connect, $query3) or trigger_error("Query Failed! SQL: $query3 - Error: " . mysqli_error($connect), E_USER_ERROR);
     //$result = $connect->query($query3);
 
     /*
@@ -69,6 +69,10 @@ if ($result->num_rows <= 0) {
         echo "error query 4";
         exit();
     }
+    if(!$connect->commit()) {
+        echo "error commit";
+        exit();
+    }
 }
 
 
@@ -79,14 +83,9 @@ while ($row = mysqli_fetch_assoc($result)) {
     $active = $row['is_active'];
     array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'], $row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['firebase_UID'], $row['name'], $row['date_of_birth'], $row['image'], $row['gender']));
 }
-while($row = mysqli_fetch_assoc($result)){
-    $role_id = $row['role_id'];
-    $active = $row['is_active'];
-    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['firebase_UID'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender'] ));
-}
 //get role_id and id
 
-if(!$active){
+if ($active != 1) {
     //return error
     echo "account is locked";
     exit();
