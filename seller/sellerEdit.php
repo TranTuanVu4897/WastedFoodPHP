@@ -1,12 +1,17 @@
 <?php
 require "../connection.php";
 
-$name = $_POST["username"];
-$address = $_POST["address"];
-$id = $_POST["id"];
-$image = $_POST["image"];
-$description = $_POST["description"];
+// $name = $_POST["username"];
+// $address = $_POST["address"];
+// $id = $_POST["id"];
+// $image = $_POST["image"];
+// $description = $_POST["description"];
 
+$name = "13";
+$address = "123";
+$id = "2003";
+$image = " ";
+$description = "â";
 
 //$name = "123";
 //$address = "123 hoa lac";
@@ -15,10 +20,10 @@ $description = $_POST["description"];
 //$description = "123";
 //$email = "123@gmail.com";
 
-$query = "update Seller set 
-address = '$address',
-name = '$name',
-description = '$description' ";
+$query = "update `seller` set 
+`address` = '$address',
+`name` = '$name',
+`description` = '$description' ";
 if($image!=" ")
 $query = $query . ",`image` = '$image'";
 
