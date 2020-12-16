@@ -28,7 +28,7 @@ $result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $qu
 if(mysqli_query($connect,$query))
 {
 
-echo " Succesfully update";
+echo " Successfully update";
 
 }
 else
