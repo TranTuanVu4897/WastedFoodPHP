@@ -9,6 +9,7 @@ $sellPrice = $_POST["sellPrice"];
 $openTime = $_POST["openTime"];
 $closeTime = $_POST["closeTime"];
 $remainQuantity = $_POST["remainQuantity"];
+$image = $_POST["image"];
 
 
 
@@ -16,8 +17,10 @@ $query = "update Product set
 name = '$name',
 original_Price = '$originalPrice',
 sell_Price = '$sellPrice',
-remain_quantity = '$remainQuantity'
-where seller_id = '$seller_id'
+remain_quantity = '$remainQuantity' ";
+if($image!=" ")
+$query = $query . ",`image` = '$image'";
+$query = $query .  " where seller_id = '$seller_id'
 and id = '$id'";
 
 if(mysqli_query($connect,$query))
