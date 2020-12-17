@@ -47,8 +47,8 @@ $description = '123';
   $result = mysqli_query($connect,$query3) or trigger_error("Query Failed! SQL: $query3 - Error: ".mysqli_error($connect), E_USER_ERROR);
 
   //insert into seller
-  $query4 = "INSERT INTO `seller` (`account_id`, `latitude`, `image`, `longitude`, `modified_date`, `name`, `address`,`description`)
-  VALUES ('$id', '$latitude', '$imageURL', '$longitude', current_timestamp(), '$name' , '$address','$description')";
+  $query4 = "INSERT INTO `seller` (`account_id`, `latitude`, `image`, `longitude`, `modified_date`, `name`, `address`,`description`,`rating`)
+  VALUES ('$id', '$latitude', '$imageURL', '$longitude', current_timestamp(), '$name' , '$address','$description' , '5.0')";
   $result = mysqli_query($connect,$query4) or trigger_error("Query Failed! SQL: $query4 - Error: ".mysqli_error($connect), E_USER_ERROR);
 
  $connect->close();
