@@ -13,7 +13,7 @@ $longitude = $_POST['longitude'];
 $address = $_POST['address'];
 $imageURL = $_POST['imageURL'];
 $firebase_UID = $_POST['firebase_UID'];
-$username = $_POST['username'9];
+$username = $_POST['username'];
 
 
 
