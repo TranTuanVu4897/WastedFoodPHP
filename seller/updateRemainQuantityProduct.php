@@ -8,7 +8,7 @@ $id = $_POST["id"];
 
 $query = "update `product` set `remain_quantity` = '$remain_quantity' where `id` = '$id'";
 
-$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query2 - Error: ".mysqli_error($connect), E_USER_ERROR);
+//$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query2 - Error: ".mysqli_error($connect), E_USER_ERROR);
 if(mysqli_query($connect,$query))
 {
 echo " Succesfully update";
