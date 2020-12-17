@@ -8,6 +8,8 @@ $accused_id = $_POST["accused_id"];
 $report_text = $_POST["report_text"];
 $report_image = $_POST["report_image"];
 
+if($report_image=="") $report_image = NULL;
+
 // $reporter_id = '3001';
 // $accused_id = '2002';
 // $report_text = 'đồ ăn không ngon';
