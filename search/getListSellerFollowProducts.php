@@ -61,7 +61,7 @@ if ($distance != null)
 $query = $query . ") currents 
         ON currents.`account_id` = `product`.`seller_id`
         WHERE DATE(`sell_date`) = CURRENT_DATE AND `remain_quantity` > 0
-        AND TIME(`end_time`) > CURRENT_TIME()
+        AND `product`.`status` = 'SELLING'
     ";
 
 if ($start_time != null)
