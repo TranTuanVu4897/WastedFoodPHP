@@ -14,9 +14,7 @@ $port = "3306";
 // $port = "3306";
 
 $connect = mysqli_connect($server, $username, $password, $dbname, $port);
-mysqli_query($connect,"SET time_zone '+07:00' ");
 mysqli_query($connect, "SET NAMES 'utf8' ");
-$connect->commit;
 
 //Check connection
 if ($connect->connect_error) {
