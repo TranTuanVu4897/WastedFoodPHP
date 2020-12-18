@@ -3,7 +3,8 @@
 echo "Welcome user 8082. Wish you live forever.";
 
 require 'connection.php';
-$result = mysqli_query($connect, "Select now();");
+$query = "Select now();";
+$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 while ($row = mysqli_fetch_assoc($result)) {
     echo $row[0];
 }
