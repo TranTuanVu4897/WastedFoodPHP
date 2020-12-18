@@ -7,11 +7,11 @@ $dbname = "eaur5hgdarhpvk2e";
 $port = "3306"; 
 
 
-// $server = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "wasted_food_database";
-// $port = "3306";
+//  $server = "localhost";
+//  $username = "root";
+//  $password = "";
+//  $dbname = "wasted_food_database";
+//  $port = "3306";
 
 $connect = mysqli_connect($server, $username, $password, $dbname, $port);
 
