@@ -6,6 +6,6 @@ require 'connection.php';
 $query = "Select now();";
 $result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 echo $result->num_rows;
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = mysqli_fetch_array($result)) {
     echo $row[0];
 }
