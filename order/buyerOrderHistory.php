@@ -20,7 +20,8 @@ $query = "SELECT `order`.`id` AS `order_id`,`buyer_id`,`product_id`,`quantity`,
         `address`,`latitude`,`longitude`,`seller`.`description` AS `seller_description`, `rating`
 FROM `order` JOIN `product` ON `product`.`id` = `order`.`product_id` 
 JOIN `seller` ON `seller`.`account_id` = `product`.`seller_id` 
-WHERE `buyer_id` = $buyer_id";
+WHERE `buyer_id` = $buyer_id
+ORDER BY `order`.`id` DESC";
 
 $result = $connect->query($query);
 

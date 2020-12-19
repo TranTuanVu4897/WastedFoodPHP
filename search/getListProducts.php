@@ -52,7 +52,7 @@ $query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
                         FROM `seller` 
                         JOIN `account` ON `account`.`id` = `seller`.`account_id`) 
                     markers ";
-if ($distance != null)
+if (!empty($distance))
     $query = $query . " WHERE distance <= $distance ";
 
 $query = $query . ") currents 
@@ -61,13 +61,16 @@ $query = $query . ") currents
         AND `product`.`status` = 'SELLING'
     ";
 
-if ($start_time != null)
-    $query = $query . " AND TIME(`start_time`) >= '$start_time' AND TIME(`end_time`) <= '$end_time' ";
+if (!empty($start_time))
+    $query = $query . " AND TIME(`start_time`) >= '$start_time'";
 
-if ($discount != null)
-    $query = $query . " AND (100 - `product`.`sell_price` / `product`.`original_price` * 100) < $discount ";
+if (!empty($start_time))
+    $query = $query . " AND TIME(`end_time`) <= '$end_time' ";
 
-if ($search_text != null)
+if (!empty($discount))
+    $query = $query . " AND (100 - `product`.`sell_price` / `product`.`original_price` * 100) >= $discount ";
+
+if (!empty($search_text))
     $query = $query . " AND `product`.`name` LIKE '%$search_text%' ";
 
 $query = $query . "ORDER BY `distance` ASC, `remain_quantity` DESC";
