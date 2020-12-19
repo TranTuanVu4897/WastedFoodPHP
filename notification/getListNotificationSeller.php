@@ -11,7 +11,7 @@ $query = "select notification.id,notification.sender_id ,notification.receiver_i
    FROM notification INNER JOIN buyer on notification.sender_id = buyer.account_id INNER JOIN 
    seller on notification.receiver_id = seller.account_id INNER JOIN `order` AS OD 
    on notification.order_id = OD.id INNER JOIN product ON OD.product_id = product.id 
-   WHERE notification.receiver_id = $receiver_id" ;
+   WHERE notification.receiver_id = $receiver_id order BY notification.modified_date desc" ;
 
 $result = $connect->query($query);
 
