@@ -21,7 +21,14 @@ $urlImage = mysqli_real_escape_string($connect, $urlImage);
 $dob = mysqli_real_escape_string($connect, $dob);
 $gender = mysqli_real_escape_string($connect, $gender);
 
-$query1 = "UPDATE `buyer` SET `date_of_birth`='$dob',`image`='$urlImage',`gender`=$gender,`name`='$name' WHERE `account_id` = $account_id";
+$query1 = "UPDATE `buyer` SET `date_of_birth`='$dob',
+`name`='$name',
+`gender`= $gender ";
+if($urlImage!=" ")
+$query1 = $query1 . ",`image`='$urlImage'";
+
+$query1 = $query1 .  " WHERE `account_id` = $account_id";
+
 $result = $connect->query($query1);
 $query2 = "UPDATE `account` SET `phone` = '$phone' WHERE `id` = $account_id";
 $result = $connect->query($query2);

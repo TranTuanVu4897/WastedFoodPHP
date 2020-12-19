@@ -3,33 +3,34 @@ require "../connection.php";
 
 
 $role = 2;
-$name = $_REQUEST['name'];
-$description = $_REQUEST['description'];
-$password = $_REQUEST['password'];
-$phone = $_REQUEST['phone'];
-$email = $_REQUEST['email'];
-$latitude = $_REQUEST['latitude'];
-$longitude = $_REQUEST['longitude'];
-$address = $_REQUEST['address'];
-$imageURL = $_REQUEST['imageURL'];
-$firebase_UID = $_REQUEST['firebase_UID'];
-$username = $_REQUEST['username'];
+$name = $_POST['name'];
+$description = $_POST['description'];
+$password = $_POST['password'];
+$phone = $_POST['phone'];
+$email = $_POST['email'];
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
+$address = $_POST['address'];
+$imageURL = $_POST['imageURL'];
+$firebase_UID = $_POST['firebase_UID'];
+$username = $_POST['username'];
 
 
 
-/*
-$role = 2;
-$name = '123';
-$password = '456';
-$phone = '7819121';
-$email = '123';
-$latitude = '1';
-$longitude = '2';
-$address = '3';
-$imageURL = '1';
-$firebase_UID = '5';
-$description = '123';
-*/
+
+// $role = 2;
+// $name = '123';
+// $password = '456';
+// $phone = '7819121';
+// $email = '123';
+// $latitude = '-1';
+// $longitude = '2';
+// $address = '3';
+// $imageURL = ' ';
+// $firebase_UID = '5';
+// $username = '1122';
+// $description = '123';
+
  //take count for get number
 
  $query2 = "SELECT COUNT(`id`) FROM `account` WHERE id LIKE '20%'";
@@ -47,8 +48,8 @@ $description = '123';
   $result = mysqli_query($connect,$query3) or trigger_error("Query Failed! SQL: $query3 - Error: ".mysqli_error($connect), E_USER_ERROR);
 
   //insert into seller
-  $query4 = "INSERT INTO `seller` (`account_id`, `latitude`, `image`, `longitude`, `modified_date`, `name`, `address`,`description`)
-  VALUES ('$id', '$latitude', '$imageURL', '$longitude', current_timestamp(), '$name' , '$address','$description')";
+  $query4 = "INSERT INTO `seller` (`account_id`, `latitude`, `image`, `longitude`, `modified_date`, `name`, `address`,`description`,`rating`)
+  VALUES ('$id', '$latitude', '$imageURL', '$longitude', current_timestamp(), '$name' , '$address','$description' , '5')";
   $result = mysqli_query($connect,$query4) or trigger_error("Query Failed! SQL: $query4 - Error: ".mysqli_error($connect), E_USER_ERROR);
 
  $connect->close();

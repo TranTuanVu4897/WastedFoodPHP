@@ -52,22 +52,25 @@ $query = "SELECT `product`.`id` AS `product_id`,`seller_id`,
                         FROM `seller` 
                         JOIN `account` ON `account`.`id` = `seller`.`account_id`) 
                     markers ";
-if ($distance != null)
+if (!empty($distance))
     $query = $query . " WHERE distance <= $distance ";
 
 $query = $query . ") currents 
         ON currents.`account_id` = `product`.`seller_id`
         WHERE DATE(`sell_date`) = CURRENT_DATE() AND `remain_quantity` > 0
-        AND TIME(`end_time`) > CURRENT_TIME()
+        AND `product`.`status` = 'SELLING'
     ";
 
-if ($start_time != null)
-    $query = $query . " AND TIME(`start_time`) >= '$start_time' AND TIME(`end_time`) <= '$end_time' ";
+if (!empty($start_time))
+    $query = $query . " AND TIME(`start_time`) >= '$start_time'";
 
-if ($discount != null)
-    $query = $query . " AND (100 - `product`.`sell_price` / `product`.`original_price` * 100) < $discount ";
+if (!empty($start_time))
+    $query = $query . " AND TIME(`end_time`) <= '$end_time' ";
 
-if ($search_text != null)
+if (!empty($discount))
+    $query = $query . " AND (100 - `product`.`sell_price` / `product`.`original_price` * 100) >= $discount ";
+
+if (!empty($search_text))
     $query = $query . " AND `product`.`name` LIKE '%$search_text%' ";
 
 $query = $query . "ORDER BY `distance` ASC, `remain_quantity` DESC";
@@ -75,7 +78,6 @@ $query = $query . "ORDER BY `distance` ASC, `remain_quantity` DESC";
 $result = mysqli_query($connect, $query . ";");
 $total_rows = $result->num_rows;
 $total_pages = ceil($total_rows / $items_per_page);
-
 if ($page <= $total_pages) {
     $query = $query . " LIMIT $offset ,$items_per_page;";
     // $result = $connect->query($query);

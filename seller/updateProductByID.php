@@ -8,18 +8,27 @@ $originalPrice = $_POST["originalPrice"];
 $sellPrice = $_POST["sellPrice"];
 $openTime = $_POST["openTime"];
 $closeTime = $_POST["closeTime"];
+$remainQuantity = $_POST["remainQuantity"];
+$image = $_POST["image"];
 
-$query = "update Product set 
-name = '$name',
-original_Price = '$originalPrice',
-sell_Price = '$sellPrice'
-where seller_id = '$seller_id'
+
+
+$query = "update `product` set 
+`name` = '$name',
+`original_Price` = '$originalPrice',
+`sell_Price` = '$sellPrice',
+`remain_quantity` = '$remainQuantity' ";
+if($image!=" ")
+$query = $query . ",`image` = '$image'";
+$query = $query .  " where seller_id = '$seller_id'
 and id = '$id'";
+
+$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 
 if(mysqli_query($connect,$query))
 {
 
-echo " Succesfully update";
+echo " Successfully update";
 
 }
 else

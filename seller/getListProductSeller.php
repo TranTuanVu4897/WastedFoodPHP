@@ -7,7 +7,7 @@ $seller = mysqli_real_escape_string($connect,$seller_id);
 //query
 $query = "select `id`,`seller_id`,`name`, `image`,`start_time`, `end_time`, `original_price`, `sell_price`, 
 `original_quantity`, `remain_quantity`, `description`, `sell_date`, `status`, `shippable` 
-from product where seller_id = '$seller_id' ";
+from product where seller_id = '$seller_id' order BY sell_date DESC ";
 
 //$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 $result = $connect->query($query);
