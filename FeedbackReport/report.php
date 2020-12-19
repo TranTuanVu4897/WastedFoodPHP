@@ -31,3 +31,4 @@ if (mysqli_query($connect, $query)) {
 } else {
     echo "ERROR";
 }
+echo $connect->error;
