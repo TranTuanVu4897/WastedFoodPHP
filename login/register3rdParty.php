@@ -42,6 +42,15 @@ $listBuyer = array();
 if ($result->num_rows <= 0) {
     //take count for get number
 
+    $query5 = "SELECT `email` from `account` WHERE `email` = '$emailUser' and `role_id` = 2";
+    $result = $connect->query($query5);
+
+    if($result->num_rows<=0){
+        echo 'notExist';
+    } else{
+        echo 'exist';
+    }
+
     $query2 = "SELECT COUNT(`id`) FROM `account` WHERE id LIKE '30%'";
     $result = $connect->query($query2);
     while ($row = mysqli_fetch_row($result)) {
@@ -78,11 +87,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $role_id = $row['role_id'];
     $active = $row['is_active'];
     array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'], $row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'], $row['firebase_UID'], $row['name'], $row['date_of_birth'], $row['image'], $row['gender']));
-}
-while($row = mysqli_fetch_assoc($result)){
-    $role_id = $row['role_id'];
-    $active = $row['is_active'];
-    array_push($listBuyer, new Buyer($row['id'], $row['role_id'], $row['username'], $row['password'], $row['phone'],$row['third_party_id'], $row['email'], $row['created_date'], $row['is_active'],$row['firebase_UID'], $row['name'],$row['date_of_birth'],$row['image'],$row['gender'] ));
 }
 //get role_id and id
 
