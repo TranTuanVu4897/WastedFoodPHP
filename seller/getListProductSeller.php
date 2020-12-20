@@ -15,7 +15,7 @@ $result = $connect->query($query);
 //Class product
 class Product1
 {
-    function Product($id, $seller_id, $name, $image, $start_time, $end_time, $original_price, $sell_price, $original_quantity, $remain_quantity, $description, $sell_date, $status, $shippable)
+    function Product1($id, $seller_id, $name, $image, $start_time, $end_time, $original_price, $sell_price, $original_quantity, $remain_quantity, $description, $sell_date, $status, $shippable)
     {
         $this->Id = $id;
         $this->SellerId = $seller_id;
