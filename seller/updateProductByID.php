@@ -10,6 +10,7 @@ $openTime = $_POST["openTime"];
 $closeTime = $_POST["closeTime"];
 $remainQuantity = $_POST["remainQuantity"];
 $image = $_POST["image"];
+$quantity = $_POST["quantity"];
 
 
 
@@ -17,6 +18,7 @@ $query = "update `product` set
 `name` = '$name',
 `original_Price` = '$originalPrice',
 `sell_Price` = '$sellPrice',
+`original_quantity` = '$quantity',
 `remain_quantity` = '$remainQuantity' ";
 if($image!=" ")
 $query = $query . ",`image` = '$image'";
