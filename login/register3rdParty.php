@@ -42,15 +42,6 @@ $listBuyer = array();
 if ($result->num_rows <= 0) {
     //take count for get number
 
-    $query5 = "SELECT `email` from `account` WHERE `email` = '$emailUser' and `role_id` = 2";
-    $result = $connect->query($query5);
-
-    if($result->num_rows<=0){
-        echo 'notExist';
-    } else{
-        echo 'exist';
-    }
-
     $query2 = "SELECT COUNT(`id`) FROM `account` WHERE id LIKE '30%'";
     $result2 = $connect->query($query2);
     while ($row = mysqli_fetch_row($result2)) {
