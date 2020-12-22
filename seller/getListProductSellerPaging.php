@@ -16,7 +16,7 @@ if (!empty($_REQUEST['page'])) {
     }
 }
 
-$items_per_page = 3;
+$items_per_page = 5;
 $offset = ($page - 1) * $items_per_page;
 
 //$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
