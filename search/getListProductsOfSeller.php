@@ -35,9 +35,9 @@ SELECT `product`.`id`,`seller_id`,`name`,`image`,`start_time`, `end_time`, `orig
  `original_quantity`, `remain_quantity`,`description`,`sell_date`,`status`,`shippable` FROM `product` 
  WHERE `seller_id` = $seller_id
  AND DATE(`sell_date`) = CURRENT_DATE()
- ORDER BY `distance` ASC, `remain_quantity` DESC
+ ORDER BY `remain_quantity` DESC
 EOF;
-echo $query;
+
 $result = $connect->query($query);
 
 
