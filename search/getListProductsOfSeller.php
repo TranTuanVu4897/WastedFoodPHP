@@ -18,9 +18,7 @@ $query = <<<EOF
     ( ( ( acos( sin(( $lat * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( $lat* pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( $lng - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance 
     FROM `seller` 
     JOIN `account` ON `account`.`id` = `seller`.`account_id` 
-    WHERE `account_id` = $seller_id
-        AND DATE(`sell_date`) = CURRENT_DATE()
-    ORDER BY `distance` ASC, `remain_quantity` DESC
+    WHERE `account_id` = $seller_id;
 EOF;
 
 $result = $connect->query($query);
@@ -36,6 +34,8 @@ $query = <<<EOF
 SELECT `product`.`id`,`seller_id`,`name`,`image`,`start_time`, `end_time`, `original_price`,`sell_price`,
  `original_quantity`, `remain_quantity`,`description`,`sell_date`,`status`,`shippable` FROM `product` 
  WHERE `seller_id` = $seller_id
+ AND DATE(`sell_date`) = CURRENT_DATE()
+ ORDER BY `distance` ASC, `remain_quantity` DESC
 EOF;
 
 $result = $connect->query($query);
