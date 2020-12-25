@@ -19,6 +19,8 @@ $query = <<<EOF
     FROM `seller` 
     JOIN `account` ON `account`.`id` = `seller`.`account_id` 
     WHERE `account_id` = $seller_id
+        AND DATE(`sell_date`) = CURRENT_DATE()
+    ORDER BY `distance` ASC, `remain_quantity` DESC
 EOF;
 
 $result = $connect->query($query);
