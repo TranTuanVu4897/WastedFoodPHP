@@ -7,6 +7,8 @@ require "../connection.php";
 // $status = $_POST["status"];
 // $total_cost = $_POST["total_cost"];
 
+echo "something";
+
 $buyer_id = 302;
 $product_id = 13;
 $quantity = 1;
