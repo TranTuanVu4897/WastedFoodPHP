@@ -1,11 +1,17 @@
 <?php 
 require "../connection.php";
 
-$buyer_id = $_POST["buyer"];
-$product_id = $_POST["product"];
-$quantity = $_POST["quantity"];
-$status = $_POST["status"];
-$total_cost = $_POST["total_cost"];
+// $buyer_id = $_POST["buyer"];
+// $product_id = $_POST["product"];
+// $quantity = $_POST["quantity"];
+// $status = $_POST["status"];
+// $total_cost = $_POST["total_cost"];
+
+$buyer_id = 302;
+$product_id = 13;
+$quantity = 1;
+$status = "BUYING";
+$total_cost = "25000";
 //buyer order not yet need
 // $buyer_rating = $_POST["buyer_rating"];
 // $buyer_comment = $_POST["buyer_comment"];
