@@ -22,7 +22,9 @@ $query = "INSERT INTO `order` ( `buyer_id`, `product_id`, `quantity`, `status`, 
 //$result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
 
 if(mysqli_query($connect,$query)){
-    echo "SUCCESS";
+    $query = "SELECT * FROM `order`;"
+    $result = mysqli_query($connect,$query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($connect), E_USER_ERROR);
+    echo $result->num_rows;
 }else{
     echo "ERROR";
     $connect->rollback();
